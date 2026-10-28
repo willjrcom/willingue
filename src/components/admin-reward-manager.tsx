@@ -28,7 +28,7 @@ export function AdminRewardManager({items}:{items:Reward[]}) {
     setForm({name:item.name,description:item.description,icon:item.icon,
       category:item.category as Category,price:String(item.price),active:item.active,position:String(item.position)});
     setEditing(item.id);setShowForm(true);setError("");setNotice("");
-    window.scrollTo({top:0,behavior:"smooth"});
+    // The edit form opens as a modal, preserving the current catalog scroll position.
   }
   function create(){setForm({...blank});setEditing(null);setShowForm(true);setError("");setNotice("");}
   async function submit(e:FormEvent<HTMLFormElement>) {
@@ -49,7 +49,8 @@ export function AdminRewardManager({items}:{items:Reward[]}) {
       <button className="admin-action-primary" type="button" onClick={create}><Plus size={17}/> Nova recompensa</button></div>
     {notice&&<p className="admin-feedback" role="status">{notice}</p>}
     {error&&!showForm&&<p className="admin-feedback error" role="alert">{error}</p>}
-    {showForm&&<form className="admin-panel admin-editor-form" onSubmit={submit}>
+    {showForm&&<div className={editing?"admin-dialog-backdrop":""}>
+    <form role={editing?"dialog":undefined} aria-modal={editing?true:undefined} aria-label={editing?"Editar recompensa":undefined} className={editing?"admin-dialog admin-modal-large admin-editor-form":"admin-panel admin-editor-form"} onSubmit={submit}>
       <div className="admin-panel-heading"><h2>{editing?"Editar recompensa":"Nova recompensa"}</h2>
         <button type="button" aria-label="Fechar editor" className="admin-icon-button" onClick={()=>setShowForm(false)}><X size={20}/></button></div>
       <div className="admin-fields">
@@ -73,7 +74,7 @@ export function AdminRewardManager({items}:{items:Reward[]}) {
       {error&&<p className="admin-feedback error" role="alert">{error}</p>}
       <div className="admin-form-actions"><button type="button" className="admin-secondary-button" onClick={()=>setShowForm(false)}>Cancelar</button>
         <button type="submit" className="admin-action-primary" disabled={busy}><Save size={17}/>{busy?"Salvando...":"Salvar recompensa"}</button></div>
-    </form>}
+    </form></div>}
     <section className="admin-panel">
       <div className="admin-student-tools">
         <label className="admin-searchbox"><Search size={18}/>

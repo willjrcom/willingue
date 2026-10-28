@@ -160,3 +160,13 @@ Faça **redeploy** depois de configurar as variáveis e confirme o volume persis
 ## Navegação administrativa por listagem e formulário dedicado
 
 As telas **Alunos**, **Turmas**, **Responsáveis** e **Financeiro** exibem inicialmente a listagem, sem mostrar formulários abertos. Ações de criação ficam no cabeçalho e navegam para páginas próprias: `/administrador/alunos/novo`, `/administrador/turmas/nova`, `/administrador/responsaveis/novo`, `/administrador/responsaveis/vincular` e `/administrador/financeiro/nova`. Após salvar, a página retorna à listagem. A API e os dados SQLite existentes são reaproveitados.
+
+## Administração completa, identidade visual e telas de erro
+
+- Comunicados em `/administrador/comunicados`: rascunho em página própria, edição em modal e envio confirmado para alunos, responsáveis ou turma. Destinatários recebem notificação **dentro do app**, não WhatsApp/SMS/e-mail; duplicação evitada.
+- Relatórios em `/administrador/relatorios`: filtros 7/30/90 dias, turma, resumo de lições, tentativas, aprovação, inadimplência e alunos. Exportação CSV pela API restrita aos administradores. Só conta registros reais.
+- Configurações em `/administrador/configuracoes`: nome, descrição e contato da escola, XP e moedas sugeridas para **novas** lições; status de ambiente sem exibir segredo.
+- Detalhe do responsável em `/administrador/responsaveis/[id]`: vínculos, lições, atividades, progresso e histórico financeiro; nome e e-mail editáveis em modal.
+- Marca W unificada: ícones do PWA, favicon, login e cabeçalhos; `/opengraph-image` expõe imagem pública 1200×630 para WhatsApp/Open Graph. Testar prévia após atualizar cache do WhatsApp.
+- Erros 404/500 usam a identidade visual e preservam a navegação do contexto nos segmentos aluno, responsável e administrador. Falha fatal no layout raiz oferece navegação alternativa.
+- Para edições simples de turma, trilha, lição, questão e recompensa, o editor agora abre em modal, preservando o contexto da listagem.

@@ -122,7 +122,7 @@ export function ClassroomManager({ classrooms, students }: {
               <button type="button" className="admin-minor" disabled={!selectedStudents[item.id] || busy !== null}
                 onClick={() => addMember(item.id)}><Plus size={19}/> Adicionar</button>
             </div>}
-            {editingId === item.id && <div className="admin-class-edit">
+            {editingId === item.id && <div className="admin-dialog-backdrop"><div className="admin-dialog admin-modal-large admin-class-edit" role="dialog" aria-modal="true" aria-label="Editar turma">
               <label className="admin-field">Nome<input value={editName} maxLength={80} minLength={2}
                 onChange={e => setEditName(e.target.value)}/></label>
               <label className="admin-field">Descrição<textarea value={editDescription} maxLength={240}
@@ -131,7 +131,7 @@ export function ClassroomManager({ classrooms, students }: {
                 <button type="button" className="admin-minor" onClick={() => saveEdit(item)} disabled={busy !== null}><Check size={17}/> Salvar</button>
                 <button type="button" className="admin-minor" onClick={() => setEditingId(null)}><X size={17}/> Cancelar</button>
               </div>
-            </div>}
+            </div></div>}
             <div className="admin-class-actions">
               <button type="button" className="admin-minor"
                 onClick={() => editingId === item.id ? setEditingId(null) : beginEdit(item)}>

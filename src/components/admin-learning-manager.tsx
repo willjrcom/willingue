@@ -58,13 +58,13 @@ function payloadQuestion(q:typeof blankQuestion,lessonId:string) {
   return {lessonId,kind:q.kind,prompt:q.prompt,explanation:q.explanation,position:q.position,options,answer};
 }
 
-export function AdminLearningManager({paths,lessons}:{paths:Trail[];lessons:Lesson[]}) {
+export function AdminLearningManager({paths,lessons,defaultXp,defaultCoins}:{paths:Trail[];lessons:Lesson[];defaultXp:number;defaultCoins:number}) {
   const router=useRouter();
   const [tab,setTab]=useState<Panel>("paths");
   const [trailForm,setTrailForm]=useState({...blankTrail});
   const [trailEditing,setTrailEditing]=useState<string|null>(null);
   const [showTrail,setShowTrail]=useState(false);
-  const [lessonForm,setLessonForm]=useState({...blankLesson,pathId:paths[0]?.id||""});
+  const [lessonForm,setLessonForm]=useState({...blankLesson,pathId:paths[0]?.id||"",xpReward:defaultXp,coinReward:defaultCoins});
   const [lessonEditing,setLessonEditing]=useState<string|null>(null);
   const [showLesson,setShowLesson]=useState(false);
   const [lessonId,setLessonId]=useState(lessons[0]?.id||"");
@@ -106,7 +106,7 @@ export function AdminLearningManager({paths,lessons}:{paths:Trail[];lessons:Less
     if(ok)setShowTrail(false);
   }
   function addLesson(){
-    setLessonEditing(null);setLessonForm({...blankLesson,pathId:paths[0]?.id||""});
+    setLessonEditing(null);setLessonForm({...blankLesson,pathId:paths[0]?.id||"",xpReward:defaultXp,coinReward:defaultCoins});
     setShowLesson(true);setError("");
   }
   function editLesson(l:Lesson){
@@ -147,7 +147,8 @@ export function AdminLearningManager({paths,lessons}:{paths:Trail[];lessons:Less
     {tab==="paths"&&<section className="admin-learning-editor">
       <div className="admin-panel-heading"><div><h2>Trilhas de aprendizado</h2><p className="admin-learning-help">Organize caminhos e subtrilhas em quantos níveis precisar.</p></div>
         <button type="button" className="admin-action-primary" onClick={addTrail}><Plus size={16}/> Nova trilha</button></div>
-      {showTrail&&<form className="admin-panel" onSubmit={submitTrail}>
+      {showTrail&&<div className={trailEditing?"admin-dialog-backdrop":""}>
+       <form role={trailEditing?"dialog":undefined} aria-modal={trailEditing?true:undefined} aria-label={trailEditing?"Editar trilha":undefined} className={trailEditing?"admin-dialog admin-modal-large admin-learning-modal":"admin-panel"} onSubmit={submitTrail}>
         <div className="admin-panel-heading"><h2>{trailEditing?"Editar trilha":"Criar trilha"}</h2>
           <button className="admin-icon-button" type="button" aria-label="Fechar" onClick={()=>setShowTrail(false)}><X size={20}/></button></div>
         <div className="admin-fields">
@@ -176,7 +177,7 @@ export function AdminLearningManager({paths,lessons}:{paths:Trail[];lessons:Less
         </div>
         <div className="admin-form-actions"><button type="button" className="admin-secondary-button" onClick={()=>setShowTrail(false)}>Cancelar</button>
           <button type="submit" className="admin-action-primary" disabled={busy}><Save size={16}/> Salvar trilha</button></div>
-      </form>}
+      </form></div>}
       <div className="admin-learning-card-grid">
         {sortedPaths.map(p=><article key={p.id} className="admin-learning-card">
           <div className="admin-learning-card-heading"><span className="admin-learning-card-emoji">{p.icon}</span>
@@ -193,7 +194,8 @@ export function AdminLearningManager({paths,lessons}:{paths:Trail[];lessons:Less
     {tab==="lessons"&&<section className="admin-learning-editor">
       <div className="admin-panel-heading"><div><h2>Lições</h2><p className="admin-learning-help">Defina recompensas de XP e moedas por conclusão.</p></div>
         <button className="admin-action-primary" type="button" disabled={!paths.length} onClick={addLesson}><Plus size={17}/> Nova lição</button></div>
-      {showLesson&&<form className="admin-panel" onSubmit={submitLesson}>
+      {showLesson&&<div className={lessonEditing?"admin-dialog-backdrop":""}>
+      <form role={lessonEditing?"dialog":undefined} aria-modal={lessonEditing?true:undefined} aria-label={lessonEditing?"Editar lição":undefined} className={lessonEditing?"admin-dialog admin-modal-large admin-learning-modal":"admin-panel"} onSubmit={submitLesson}>
         <div className="admin-panel-heading"><h2>{lessonEditing?"Editar lição":"Nova lição"}</h2>
           <button className="admin-icon-button" aria-label="Fechar" type="button" onClick={()=>setShowLesson(false)}><X size={20}/></button></div>
         <div className="admin-fields">
@@ -218,7 +220,7 @@ export function AdminLearningManager({paths,lessons}:{paths:Trail[];lessons:Less
         <p className="admin-learning-help">Uma nova lição começa como rascunho. Crie ao menos uma questão antes de publicá-la.</p>
         <div className="admin-form-actions"><button className="admin-secondary-button" type="button" onClick={()=>setShowLesson(false)}>Cancelar</button>
           <button type="submit" className="admin-action-primary" disabled={busy}><Save size={17}/> Salvar lição</button></div>
-      </form>}
+      </form></div>}
       <div className="admin-learning-card-grid">{lessons.map(l=><article key={l.id} className="admin-learning-card">
         <div className="admin-learning-card-heading"><span className="admin-learning-card-emoji">{l.icon}</span>
           <span><strong>{l.title}</strong><small>{paths.find(p=>p.id===l.pathId)?.title||"Sem trilha"} · {l.questions.length} questões</small></span></div>
@@ -241,7 +243,8 @@ export function AdminLearningManager({paths,lessons}:{paths:Trail[];lessons:Less
         <button type="button" className="admin-action-primary" disabled={!currentLesson} onClick={addQuestion}><Plus size={17}/> Nova questão</button></div>
       <label className="admin-field">Lição selecionada<select value={lessonId} onChange={e=>{setLessonId(e.target.value);setShowQuestion(false);}}>
         {lessons.map(l=><option value={l.id} key={l.id}>{l.title}</option>)}</select></label>
-      {showQuestion&&<form className="admin-panel" onSubmit={submitQuestion}>
+      {showQuestion&&<div className={questionEditing?"admin-dialog-backdrop":""}>
+      <form role={questionEditing?"dialog":undefined} aria-modal={questionEditing?true:undefined} aria-label={questionEditing?"Editar questão":undefined} className={questionEditing?"admin-dialog admin-modal-large admin-learning-modal":"admin-panel"} onSubmit={submitQuestion}>
         <div className="admin-panel-heading"><h2>{questionEditing?"Editar questão":"Nova questão"}</h2>
           <button className="admin-icon-button" type="button" aria-label="Fechar" onClick={()=>setShowQuestion(false)}><X size={20}/></button></div>
         <div className="admin-fields">
@@ -275,7 +278,7 @@ export function AdminLearningManager({paths,lessons}:{paths:Trail[];lessons:Less
           As palavras e a resposta devem conter exatamente os mesmos itens, apenas em ordem diferente.</p>}
         <div className="admin-form-actions"><button className="admin-secondary-button" type="button" onClick={()=>setShowQuestion(false)}>Cancelar</button>
           <button className="admin-action-primary" type="submit" disabled={busy}><Save size={16}/> Salvar questão</button></div>
-      </form>}
+      </form></div>}
       <div className="admin-panel">
         <div className="admin-panel-heading"><h2>{currentLesson?.title||"Selecione uma lição"}</h2>
           <span className="admin-learning-chip">{currentLesson?.questions.length||0} questões</span></div>
