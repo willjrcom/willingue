@@ -81,7 +81,7 @@ async function main() {
   const passwordHash = await bcrypt.hash('Demo@12345', 12);
   const user = await db.user.upsert({ where: { email: 'aluno@willingue.app' }, create: {
     email: 'aluno@willingue.app', name: 'Alex', passwordHash,
-  }, update: {} });
+  }, update: { passwordHash } });
   const student = await db.studentProfile.upsert({ where: { userId: user.id }, create: {
     userId: user.id, nickname: 'Alex', xp: 0, coins: 75, selectedAvatar: '🦊',
   }, update: {} });
