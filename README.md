@@ -142,3 +142,10 @@ Faça **redeploy** depois de configurar as variáveis e confirme o volume persis
 - Dashboard dinâmico com dados de alunos, responsáveis, turmas, lições realizadas, cobranças e últimos eventos.
 - Listagem centralizada dos alunos em `/administrador/alunos` com busca, filtros, detalhes, histórico e atribuição de trilhas individuais.
 - Rotas de administração protegidas pelo layout de servidor, com autorização validada novamente nas APIs de escrita.
+
+## Catálogo de recompensas
+
+- `/administrador/recompensas` permite cadastrar e editar avatares, figurinhas e molduras, com descrição, emoji/arte padrão, preço, ordem e disponibilidade.
+- Exibe contagem real de resgates e permite buscar/filtrar os itens.
+- Itens desativados não podem ser comprados novamente, mas permanecem na coleção de quem já os adquiriu. Preços alterados não modificam compras antigas.
+- O catálogo atual utiliza o gerador local de PNG/avatares do MVP; upload de artes próprias ainda será uma expansão posterior.
