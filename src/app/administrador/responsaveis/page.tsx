@@ -24,12 +24,8 @@ export default async function AdminGuardiansPage() {
       orderBy: { user: { name: "asc" } },
     }),
   ]);
-  return <main className="admin-page">
-    <header className="admin-header">
-      <Link className="admin-brand" href="/administrador"><Sparkles size={26}/> Willingue<span>.</span></Link>
-      <LogoutButton/>
-    </header>
-    <div className="admin-container">
+  return <div className="admin-content">
+
       <Link href="/administrador" className="admin-back"><ArrowLeft size={17}/> Voltar para administração</Link>
       <div className="admin-intro"><p className="eyebrow muted">GESTÃO FAMILIAR</p><h1>Responsáveis</h1>
         <p>Crie acessos e vincule um ou vários responsáveis a cada aluno.</p></div>
@@ -44,6 +40,6 @@ export default async function AdminGuardiansPage() {
           })),
         }))}
       />
-    </div>
-  </main>;
+
+  </div>;
 }

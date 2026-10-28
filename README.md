@@ -135,3 +135,10 @@ Faça **redeploy** depois de configurar as variáveis e confirme o volume persis
 - `/administrador/financeiro`: criar cobrança manual por aluno, definir pagante (aluno ou responsável já vinculado), acompanhar situação, registrar como paga, reabrir ou cancelar. Alterações não processam transações reais.
 - Cobranças e vínculos são modificáveis somente por administrador autenticado, com validação de entrada no servidor. As telas do aluno e do responsável são **somente leitura**.
 - A inclusão de uma cobrança gera aviso no sino do aluno e dos responsáveis vinculados. Uma alteração de status também informa as pessoas vinculadas.
+
+## Painel administrativo responsivo
+
+- Navegação lateral no desktop; barra inferior com **Início, Alunos, Turmas, Financeiro e Mais** no celular. Menu **Mais** dá acesso aos demais módulos.
+- Dashboard dinâmico com dados de alunos, responsáveis, turmas, lições realizadas, cobranças e últimos eventos.
+- Listagem centralizada dos alunos em `/administrador/alunos` com busca, filtros, detalhes, histórico e atribuição de trilhas individuais.
+- Rotas de administração protegidas pelo layout de servidor, com autorização validada novamente nas APIs de escrita.

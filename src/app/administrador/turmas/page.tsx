@@ -49,12 +49,8 @@ export default async function AdminClassesPage() {
       avatar: m.student.selectedAvatar || "🎓",
     })),
   }));
-  return <main className="admin-page">
-    <header className="admin-header">
-      <Link className="admin-brand" href="/administrador"><Sparkles size={26}/> Willingue<span>.</span></Link>
-      <LogoutButton/>
-    </header>
-    <div className="admin-container">
+  return <div className="admin-content">
+
       <Link className="admin-back" href="/administrador"><ArrowLeft size={17}/> Voltar para administração</Link>
       <div className="admin-intro">
         <p className="eyebrow muted">GESTÃO ESCOLAR</p>
@@ -62,6 +58,6 @@ export default async function AdminClassesPage() {
         <p>Organize os participantes e acompanhe a competição por lições concluídas.</p>
       </div>
       <ClassroomManager classrooms={classrooms} students={allStudents}/>
-    </div>
-  </main>;
+
+  </div>;
 }

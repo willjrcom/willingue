@@ -27,12 +27,8 @@ export default async function AdminFinancePage() {
       take: 150,
     }),
   ]);
-  return <main className="admin-page">
-    <header className="admin-header">
-      <Link className="admin-brand" href="/administrador"><Sparkles size={26}/> Willingue<span>.</span></Link>
-      <LogoutButton/>
-    </header>
-    <div className="admin-container">
+  return <div className="admin-content">
+
       <Link href="/administrador" className="admin-back"><ArrowLeft size={17}/> Voltar para administração</Link>
       <div className="admin-intro"><p className="eyebrow muted">CONTROLE DE COBRANÇAS</p><h1>Financeiro</h1>
         <p>Cadastre mensalidades, selecione o pagante e registre pagamentos manualmente.</p></div>
@@ -48,6 +44,6 @@ export default async function AdminFinancePage() {
         payerLabel: c.payerType === "STUDENT" ? "Aluno" :
           (c.payerGuardian?.name || "Responsável financeiro"),
       }))}/>
-    </div>
-  </main>;
+
+  </div>;
 }
