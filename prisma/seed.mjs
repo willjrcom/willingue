@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
+import { randomBytes } from 'node:crypto';
 
 const db = new PrismaClient();
 const paths = [
@@ -97,6 +98,57 @@ async function main() {
     id: 'demo-activity-intro', studentId: student.id, lessonId: 'lesson-my-name',
     dueAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
   }, update: {} });
+
+  // Classroom data is deliberately demo-only and never changes the signed-in
+  // student's historical lesson completions.
+  const classroom = await db.classroom.upsert({
+    where: { id: 'demo-classroom-a1' },
+    create: {
+      id: 'demo-classroom-a1',
+      name: 'Turma A1 · Exploradores',
+      description: 'Primeiros passos no inglês — turma de demonstração',
+    },
+    update: {},
+  });
+  await db.classroomMember.upsert({
+    where: { classroomId_studentId: { classroomId: classroom.id, studentId: student.id } },
+    create: { classroomId: classroom.id, studentId: student.id },
+    update: {},
+  });
+
+  const sampleClassmates = [
+    { email: 'bia.classmate@willingue.app', name: 'Bia', avatar: '🦄', completed: ['lesson-hello', 'lesson-my-name', 'lesson-morning', 'lesson-school'] },
+    { email: 'leo.classmate@willingue.app', name: 'Léo', avatar: '🦁', completed: ['lesson-hello', 'lesson-my-name', 'lesson-morning'] },
+    { email: 'nina.classmate@willingue.app', name: 'Nina', avatar: '🐼', completed: ['lesson-hello', 'lesson-my-name'] },
+    { email: 'rafa.classmate@willingue.app', name: 'Rafa', avatar: '🐸', completed: ['lesson-hello'] },
+  ];
+  for (const peer of sampleClassmates) {
+    // Random password: seeded classmates exist only to populate the example
+    // leaderboard, not as shared login credentials.
+    const peerHash = await bcrypt.hash(randomBytes(32).toString('hex'), 10);
+    const peerUser = await db.user.upsert({
+      where: { email: peer.email },
+      create: { email: peer.email, name: peer.name, role: 'STUDENT', passwordHash: peerHash },
+      update: {},
+    });
+    const peerStudent = await db.studentProfile.upsert({
+      where: { userId: peerUser.id },
+      create: { userId: peerUser.id, nickname: peer.name, selectedAvatar: peer.avatar },
+      update: {},
+    });
+    await db.classroomMember.upsert({
+      where: { classroomId_studentId: { classroomId: classroom.id, studentId: peerStudent.id } },
+      create: { classroomId: classroom.id, studentId: peerStudent.id },
+      update: {},
+    });
+    for (const lessonId of peer.completed) {
+      await db.lessonCompletion.upsert({
+        where: { studentId_lessonId: { studentId: peerStudent.id, lessonId } },
+        create: { studentId: peerStudent.id, lessonId, score: 100 },
+        update: {},
+      });
+    }
+  }
   console.log('Demo Willingue pronta: aluno@willingue.app / Demo@12345');
 }
 

@@ -1,23 +1,41 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
-import { ClipboardList, GraduationCap, Layers, Sparkles } from "lucide-react";
+import { ArrowRight, ClipboardList, GraduationCap, Layers, Sparkles, UsersRound } from "lucide-react";
 import { currentUser } from "@/lib/auth";
+import { db } from "@/lib/db";
 import { LogoutButton } from "@/components/logout-button";
 
 export const metadata = { title: "Administração" };
+
 export default async function AdminPage() {
   const user = await currentUser();
   if (!user || user.role !== "ADMIN") redirect("/login");
-  return <main className="demo-portal">
-    <header className="demo-portal-brand"><Sparkles size={23}/> Willingue<span>.</span></header>
-    <section className="demo-portal-card"><div className="demo-portal-icon">🛠️</div>
-      <span className="demo-portal-eyebrow">PERFIL ADMINISTRADOR</span>
-      <h1>Olá, {user.name}!</h1><p>Seu acesso administrativo já funciona. O painel de gestão será implementado na próxima etapa.</p>
-      <div className="demo-portal-features">
-        <span><GraduationCap size={18}/> Gestão de alunos</span>
-        <span><Layers size={18}/> Trilhas e atividades</span>
-        <span><ClipboardList size={18}/> Financeiro e responsáveis</span>
-      </div>
+  const [studentCount, classroomCount] = await Promise.all([
+    db.studentProfile.count(),
+    db.classroom.count({ where: { active: true } }),
+  ]);
+  return <main className="admin-page">
+    <header className="admin-header">
+      <Link className="admin-brand" href="/administrador"><Sparkles size={26}/> Willingue<span>.</span></Link>
       <LogoutButton/>
-    </section>
+    </header>
+    <div className="admin-container">
+      <div className="admin-intro"><p className="eyebrow muted">ADMINISTRAÇÃO ESCOLAR</p>
+        <h1>Olá, {user.name}!</h1>
+        <p>Organize as turmas, acompanhe os alunos e prepare suas próximas aulas.</p>
+      </div>
+      <div className="admin-stat-grid">
+        <div className="admin-stat"><GraduationCap size={26}/><strong>{studentCount}</strong><span>Alunos cadastrados</span></div>
+        <div className="admin-stat"><UsersRound size={26}/><strong>{classroomCount}</strong><span>Turmas ativas</span></div>
+      </div>
+      <section className="admin-section">
+        <div><h2>Gestão de turmas</h2><p>Cadastre turmas, vincule alunos e acompanhe os rankings de lições concluídas.</p></div>
+        <Link href="/administrador/turmas" className="primary-button">Gerenciar turmas <ArrowRight size={18}/></Link>
+      </section>
+      <div className="admin-planned">
+        <div><Layers size={24}/><strong>Trilhas e conteúdo</strong><span>Editor administrativo em desenvolvimento</span></div>
+        <div><ClipboardList size={24}/><strong>Financeiro</strong><span>Cobranças e responsáveis em desenvolvimento</span></div>
+      </div>
+    </div>
   </main>;
 }

@@ -34,6 +34,7 @@ model StudentProfile {
   attempts        LessonAttempt[]
   redemptions     RewardRedemption[]
   activities      Activity[]
+  classrooms      ClassroomMember[]
 }
 
 model LearningPath {
@@ -171,4 +172,25 @@ model Activity {
   completedAt DateTime?
 
   @@index([studentId, dueAt])
+}
+
+model Classroom {
+  id          String            @id @default(cuid())
+  name        String
+  description String            @default("")
+  active      Boolean           @default(true)
+  createdAt   DateTime          @default(now())
+  members     ClassroomMember[]
+}
+
+model ClassroomMember {
+  id          String         @id @default(cuid())
+  classroomId String
+  studentId   String
+  joinedAt    DateTime       @default(now())
+  classroom   Classroom      @relation(fields: [classroomId], references: [id], onDelete: Cascade)
+  student     StudentProfile @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([classroomId, studentId])
+  @@index([studentId, classroomId])
 }

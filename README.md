@@ -100,3 +100,13 @@ Faça **redeploy** depois de configurar as variáveis e confirme o volume persis
 - Sem data de nascimento, o modo automático usa a experiência Kids para preservar os cadastros existentes.
 - A adaptação altera **apenas a apresentação**: lições, XP, moedas, recompensas, permissões e histórico são os mesmos.
 - O banco recebe uma migration incremental: `StudentProfile.birthDate` opcional e `StudentProfile.interfaceMode` padrão `AUTO`.
+
+## Turmas e ranking de lições (MVP)
+
+- Na quinta navegação do aluno, **Minha turma** mostra os colegas pertencentes à mesma turma (apenas apelido/primeiro nome e avatar; não mostra e-mail).
+- Classificação por **lições únicas concluídas**, excluindo replays e tentativas; filtros `Esta semana` e `Geral`. Empates recebem a mesma posição.
+- Um aluno pode pertencer a várias turmas, com seleção independente. A consulta confere a matrícula antes de exibir os colegas.
+- No administrador, **Gerenciar turmas** permite cadastrar/editar/excluir turmas, criar alunos com senha individual e associar/desassociar alunos existentes.
+- As operações administrativas exigem sessão com papel `ADMIN`, validação de entrada e verificações de origem.
+- Migration incremental cria `Classroom` e `ClassroomMember` sem alterar progresso já registrado.
+- Com `DEMO_SEED=true`, a conta Alex é vinculada à **Turma A1 · Exploradores** junto com quatro colegas fictícios que têm lições concluídas para ilustrar o ranking. O seed não altera as conclusões do Alex.
