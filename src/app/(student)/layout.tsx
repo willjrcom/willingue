@@ -14,7 +14,6 @@ export default async function StudentLayout({ children }: { children: ReactNode 
       <div className="topbar-actions">
         <Link className="mini-balance" href="/recompensas" aria-label={`${student.coins} moedas`}><Coins size={19}/><strong>{student.coins}</strong></Link>
         <Link className="header-icon" href="/notificacoes" aria-label={unread ? `${unread} notificações não lidas` : "Notificações"}><Bell size={21}/>{unread > 0 && <span className="notif-dot">{unread > 9 ? "9+" : unread}</span>}</Link>
-        <Link className="small-avatar" href="/perfil" aria-label="Meu perfil">{student.selectedAvatar || "🦊"}</Link>
       </div>
     </header>
     <main className="page-container" id="content">{children}</main>
