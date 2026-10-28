@@ -88,7 +88,7 @@ async function main() {
   }, update: {} });
   await db.notification.upsert({ where: { id: 'demo-welcome-notification' }, create: {
     id: 'demo-welcome-notification', userId: user.id, title: 'Bem-vindo ao Willingue! 👋',
-    message: 'Sua jornada começou. Complete sua primeira lição para ganhar XP e moedas!', href: '/aprender',
+    message: 'Sua jornada começou. Complete sua primeira lição para ganhar XP e moedas!', href: '/learn',
   }, update: {} });
   await db.activity.upsert({ where: { id: 'demo-activity-hello' }, create: {
     id: 'demo-activity-hello', studentId: student.id, lessonId: 'lesson-hello',
@@ -184,7 +184,7 @@ async function main() {
     create: { id: 'demo-guardian-welcome', userId: guardian.id,
       title: 'Bem-vindo ao acompanhamento escolar!',
       message: 'Veja as trilhas e as cobranças do Alex pelo seu painel.',
-      href: '/responsavel' },
+      href: '/guardian' },
     update: {},
   });
   console.log('Demo Willingue pronta: aluno@willingue.app / Demo@12345');

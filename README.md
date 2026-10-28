@@ -116,13 +116,13 @@ Faça **redeploy** depois de configurar as variáveis e confirme o volume persis
 - O card **Meu perfil** mostra um botão de editar sobre o canto superior direito do avatar, abrindo um modal (sem confirmação nativa).
 - O aluno pode atualizar nome, apelido de exibição e escolher entre o avatar padrão e avatares já resgatados. O e-mail é exibido como somente leitura e é gerenciado pela escola.
 - A API `POST /api/profile/details` valida o acesso do aluno, os campos, a origem da solicitação e a propriedade de avatares; salva nome e dados de apresentação em uma transação SQLite.
-- O card **Preferências** abre `/preferencias`, página separada com os três estilos por idade e data de nascimento. As configurações existentes são mantidas, sem nova migration.
+- O card **Preferências** abre `/preferences`, página separada com os três estilos por idade e data de nascimento. As configurações existentes são mantidas, sem nova migration.
 - O progresso, as moedas, as lições e os vínculos com turmas não são afetados.
 
 ## Responsáveis, progresso e financeiro
 
 - Contas vinculadas: um aluno pode ter vários responsáveis; um responsável pode acompanhar vários alunos. O responsável financeiro é marcado no vínculo, e cada cobrança possui pagante independente (`GUARDIAN` ou `STUDENT`).
-- O responsável autenticado acessa `/responsavel`, `/responsavel/alunos`, `/responsavel/alunos/[id]`, `/responsavel/financeiro`. Consultas de filhos são sempre filtradas pelo vínculo cadastrado, sem revelar dados de outros alunos.
+- O responsável autenticado acessa `/guardian`, `/guardian/students`, `/guardian/students/[id]`, `/guardian/finance`. Consultas de filhos são sempre filtradas pelo vínculo cadastrado, sem revelar dados de outros alunos.
 - O progresso é calculado com as trilhas e conclusões reais do banco. Mostra total, percentual, histórico recente, atividades pendentes e movimento na última semana, sem estimar presença ou frequência não cadastrada.
 - As cobranças ficam no SQLite, em centavos inteiros, com vencimento e status manual `PENDING`, `PAID`, `CANCELED`; o rótulo `OVERDUE` é calculado ao consultar cobranças vencidas e não pagas.
 - O aluno vê suas cobranças em **Meu perfil → Minhas contas**; o responsável tem **Financeiro** como aba principal, podendo filtrar por estudante e situação.
@@ -131,8 +131,8 @@ Faça **redeploy** depois de configurar as variáveis e confirme o volume persis
 
 ## Operação administrativa de responsáveis e cobranças
 
-- `/administrador/responsaveis`: cadastro de responsáveis com senha inicial (bcrypt), inclusão/remoção de vínculos, identificação de responsável financeiro em cada vínculo.
-- `/administrador/financeiro`: criar cobrança manual por aluno, definir pagante (aluno ou responsável já vinculado), acompanhar situação, registrar como paga, reabrir ou cancelar. Alterações não processam transações reais.
+- `/admin/guardians`: cadastro de responsáveis com senha inicial (bcrypt), inclusão/remoção de vínculos, identificação de responsável financeiro em cada vínculo.
+- `/admin/finance`: criar cobrança manual por aluno, definir pagante (aluno ou responsável já vinculado), acompanhar situação, registrar como paga, reabrir ou cancelar. Alterações não processam transações reais.
 - Cobranças e vínculos são modificáveis somente por administrador autenticado, com validação de entrada no servidor. As telas do aluno e do responsável são **somente leitura**.
 - A inclusão de uma cobrança gera aviso no sino do aluno e dos responsáveis vinculados. Uma alteração de status também informa as pessoas vinculadas.
 
@@ -140,12 +140,12 @@ Faça **redeploy** depois de configurar as variáveis e confirme o volume persis
 
 - Navegação lateral no desktop; barra inferior com **Início, Alunos, Turmas, Financeiro e Mais** no celular. Menu **Mais** dá acesso aos demais módulos.
 - Dashboard dinâmico com dados de alunos, responsáveis, turmas, lições realizadas, cobranças e últimos eventos.
-- Listagem centralizada dos alunos em `/administrador/alunos` com busca, filtros, detalhes, histórico e atribuição de trilhas individuais.
+- Listagem centralizada dos alunos em `/admin/students` com busca, filtros, detalhes, histórico e atribuição de trilhas individuais.
 - Rotas de administração protegidas pelo layout de servidor, com autorização validada novamente nas APIs de escrita.
 
 ## Catálogo de recompensas
 
-- `/administrador/recompensas` permite cadastrar e editar avatares, figurinhas e molduras, com descrição, emoji/arte padrão, preço, ordem e disponibilidade.
+- `/admin/rewards` permite cadastrar e editar avatares, figurinhas e molduras, com descrição, emoji/arte padrão, preço, ordem e disponibilidade.
 - Exibe contagem real de resgates e permite buscar/filtrar os itens.
 - Itens desativados não podem ser comprados novamente, mas permanecem na coleção de quem já os adquiriu. Preços alterados não modificam compras antigas.
 - O catálogo atual utiliza o gerador local de PNG/avatares do MVP; upload de artes próprias ainda será uma expansão posterior.
@@ -159,14 +159,30 @@ Faça **redeploy** depois de configurar as variáveis e confirme o volume persis
 
 ## Navegação administrativa por listagem e formulário dedicado
 
-As telas **Alunos**, **Turmas**, **Responsáveis** e **Financeiro** exibem inicialmente a listagem, sem mostrar formulários abertos. Ações de criação ficam no cabeçalho e navegam para páginas próprias: `/administrador/alunos/novo`, `/administrador/turmas/nova`, `/administrador/responsaveis/novo`, `/administrador/responsaveis/vincular` e `/administrador/financeiro/nova`. Após salvar, a página retorna à listagem. A API e os dados SQLite existentes são reaproveitados.
+As telas **Alunos**, **Turmas**, **Responsáveis** e **Financeiro** exibem inicialmente a listagem, sem mostrar formulários abertos. Ações de criação ficam no cabeçalho e navegam para páginas próprias: `/admin/students/new`, `/admin/classrooms/new`, `/admin/guardians/new`, `/admin/guardians/link` e `/admin/finance/new`. Após salvar, a página retorna à listagem. A API e os dados SQLite existentes são reaproveitados.
 
 ## Administração completa, identidade visual e telas de erro
 
-- Comunicados em `/administrador/comunicados`: rascunho em página própria, edição em modal e envio confirmado para alunos, responsáveis ou turma. Destinatários recebem notificação **dentro do app**, não WhatsApp/SMS/e-mail; duplicação evitada.
-- Relatórios em `/administrador/relatorios`: filtros 7/30/90 dias, turma, resumo de lições, tentativas, aprovação, inadimplência e alunos. Exportação CSV pela API restrita aos administradores. Só conta registros reais.
-- Configurações em `/administrador/configuracoes`: nome, descrição e contato da escola, XP e moedas sugeridas para **novas** lições; status de ambiente sem exibir segredo.
-- Detalhe do responsável em `/administrador/responsaveis/[id]`: vínculos, lições, atividades, progresso e histórico financeiro; nome e e-mail editáveis em modal.
+- Comunicados em `/admin/announcements`: rascunho em página própria, edição em modal e envio confirmado para alunos, responsáveis ou turma. Destinatários recebem notificação **dentro do app**, não WhatsApp/SMS/e-mail; duplicação evitada.
+- Relatórios em `/admin/reports`: filtros 7/30/90 dias, turma, resumo de lições, tentativas, aprovação, inadimplência e alunos. Exportação CSV pela API restrita aos administradores. Só conta registros reais.
+- Configurações em `/admin/settings`: nome, descrição e contato da escola, XP e moedas sugeridas para **novas** lições; status de ambiente sem exibir segredo.
+- Detalhe do responsável em `/admin/guardians/[id]`: vínculos, lições, atividades, progresso e histórico financeiro; nome e e-mail editáveis em modal.
 - Marca W unificada: ícones do PWA, favicon, login e cabeçalhos; `/opengraph-image` expõe imagem pública 1200×630 para WhatsApp/Open Graph. Testar prévia após atualizar cache do WhatsApp.
 - Erros 404/500 usam a identidade visual e preservam a navegação do contexto nos segmentos aluno, responsável e administrador. Falha fatal no layout raiz oferece navegação alternativa.
 - Para edições simples de turma, trilha, lição, questão e recompensa, o editor agora abre em modal, preservando o contexto da listagem.
+
+## Canonical English URLs
+
+All user-facing route **paths** are in English. The interface language is still
+Brazilian Portuguese, and existing data is unchanged. Legacy links are
+permanently redirected (HTTP 308) to the new routes while preserving search
+parameters; old notification URLs saved in SQLite still work.
+
+| Area | Canonical URLs |
+| --- | --- |
+| Student | `/learn`, `/paths/:id`, `/lessons/:id`, `/my-class`, `/activities`, `/rewards`, `/profile`, `/preferences`, `/notifications`, `/billing` |
+| Guardian | `/guardian`, `/guardian/students`, `/guardian/students/:id`, `/guardian/finance`, `/guardian/profile`, `/guardian/notifications` |
+| Admin | `/admin`, `/admin/students`, `/admin/classrooms`, `/admin/guardians`, `/admin/learning`, `/admin/rewards`, `/admin/announcements`, `/admin/reports`, `/admin/finance`, `/admin/settings` |
+| Registration | `/admin/students/new`, `/admin/classrooms/new`, `/admin/guardians/new`, `/admin/guardians/link`, `/admin/finance/new`, `/admin/announcements/new` |
+
+APIs under `/api/` were already in English and remain backward-compatible.
