@@ -598,3 +598,21 @@
 .admin-learning-preview strong{font-size:12px}
 .admin-learning-preview p{font-size:12px;color:#7e759e;margin:0}
 @media(max-width:1050px){.admin-learning-card-grid{grid-template-columns:1fr}}
+
+/* Dedicated administration forms instead of always-expanded registration cards */
+.admin-heading-actions{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.admin-heading-actions .admin-secondary-button{display:inline-flex;align-items:center;gap:7px;min-height:43px}
+.admin-create-page{max-width:1020px}
+.admin-create-card{background:#fff;border:1px solid #e9e5f5;border-radius:20px;padding:clamp(18px,3vw,32px);box-shadow:0 12px 40px #26204808}
+.admin-create-form{display:grid;gap:23px}
+.admin-create-section{display:flex;align-items:center;gap:13px;border-bottom:1px solid #efebf7;padding-bottom:20px}
+.admin-create-section>span{width:47px;height:47px;display:grid;place-items:center;border-radius:14px;background:#efebff;color:#6553d8;flex-shrink:0}
+.admin-create-section h2{font-size:19px;margin:0 0 6px}
+.admin-create-section p{font-size:12px;margin:0;color:#9088a4}
+.admin-create-form .admin-fields{gap:20px}
+.admin-create-form .admin-field{gap:9px}
+.admin-create-form .admin-field small{font-weight:500;color:#a9a1b5}
+.admin-create-form .admin-field input,.admin-create-form .admin-field select,.admin-create-form .admin-field textarea{padding:13px}
+.admin-create-form .admin-form-actions{padding-top:18px;border-top:1px solid #efebf7}
+.admin-create-form .admin-secondary-button{display:inline-flex;align-items:center;justify-content:center;min-height:43px}
+@media(max-width:760px){.admin-heading-actions{width:100%}.admin-create-card{padding:18px}.admin-create-page .admin-page-heading{gap:0}.admin-create-form .admin-fields{grid-template-columns:1fr}}

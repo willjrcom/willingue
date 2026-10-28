@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Check, ChevronDown, GraduationCap, Pencil, Plus, Trash2, UsersRound, X } from "lucide-react";
+import { Check, Pencil, Plus, Trash2, X } from "lucide-react";
 import { readApiJson } from "@/lib/api-client";
 
 type Student = { id: string; name: string; nickname: string; email: string; avatar: string };
@@ -17,13 +17,6 @@ export function ClassroomManager({ classrooms, students }: {
   const router = useRouter();
   const [busy, setBusy] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<{ message: string; error: boolean } | null>(null);
-  const [className, setClassName] = useState("");
-  const [classDescription, setClassDescription] = useState("");
-  const [studentName, setStudentName] = useState("");
-  const [studentNickname, setStudentNickname] = useState("");
-  const [studentEmail, setStudentEmail] = useState("");
-  const [studentPassword, setStudentPassword] = useState("");
-  const [studentClassId, setStudentClassId] = useState("");
   const [selectedStudents, setSelectedStudents] = useState<Record<string, string>>({});
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editName, setEditName] = useState("");
@@ -51,27 +44,6 @@ export function ClassroomManager({ classrooms, students }: {
       return false;
     } finally {
       setBusy(null);
-    }
-  }
-
-  async function createClass(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const ok = await perform("create-class", "/api/admin/classrooms", "POST",
-      { name: className, description: classDescription }, "Turma cadastrada com sucesso.");
-    if (ok) { setClassName(""); setClassDescription(""); }
-  }
-
-  async function createStudent(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const ok = await perform("create-student", "/api/admin/students", "POST", {
-      name: studentName,
-      nickname: studentNickname,
-      email: studentEmail,
-      password: studentPassword,
-      classroomId: studentClassId || undefined,
-    }, "Aluno cadastrado! Compartilhe a senha diretamente com ele ou com o responsável.");
-    if (ok) {
-      setStudentName(""); setStudentNickname(""); setStudentEmail(""); setStudentPassword("");
     }
   }
 
@@ -113,63 +85,13 @@ export function ClassroomManager({ classrooms, students }: {
 
   return <div className="admin-management">
     {feedback && <p className={`admin-feedback${feedback.error ? " error" : ""}`} role="status">{feedback.message}</p>}
-    <div className="admin-class-grid">
-      <form onSubmit={createClass} className="admin-form-card">
-        <h2><UsersRound size={21} style={{ verticalAlign: "middle" }}/> Nova turma</h2>
-        <p>Crie uma turma para organizar alunos e iniciar um ranking exclusivo.</p>
-        <label className="admin-field">Nome da turma
-          <input value={className} onChange={e => setClassName(e.target.value)}
-            required minLength={2} maxLength={80} placeholder="Ex.: Inglês A1 — Segunda-feira"/>
-        </label>
-        <label className="admin-field">Descrição
-          <textarea value={classDescription} onChange={e => setClassDescription(e.target.value)}
-            maxLength={240} placeholder="Horário, nível ou informações da turma"/>
-        </label>
-        <button className="primary-button" disabled={busy !== null}><Plus size={17}/>
-          {busy === "create-class" ? "Criando..." : "Cadastrar turma"}</button>
-      </form>
-
-      <form onSubmit={createStudent} className="admin-form-card">
-        <h2><GraduationCap size={21} style={{ verticalAlign: "middle" }}/> Cadastrar aluno</h2>
-        <p>Crie o acesso do aluno e, se quiser, já vincule a uma turma.</p>
-        <div className="admin-fields">
-          <label className="admin-field">Nome completo
-            <input required maxLength={100} minLength={2} value={studentName}
-              onChange={e => setStudentName(e.target.value)} placeholder="Nome do aluno"/>
-          </label>
-          <label className="admin-field">Apelido exibido
-            <input maxLength={32} value={studentNickname} onChange={e => setStudentNickname(e.target.value)}
-              placeholder="Ex.: Bia"/>
-          </label>
-          <label className="admin-field">E-mail de acesso
-            <input required type="email" autoComplete="off" value={studentEmail}
-              onChange={e => setStudentEmail(e.target.value)} placeholder="aluno@exemplo.com"/>
-          </label>
-          <label className="admin-field">Senha inicial
-            <input required type="password" autoComplete="new-password" minLength={8} maxLength={120}
-              value={studentPassword} onChange={e => setStudentPassword(e.target.value)}
-              placeholder="Mínimo 8 caracteres"/>
-          </label>
-          <label className="admin-field full">Adicionar à turma (opcional)
-            <select value={studentClassId} onChange={e => setStudentClassId(e.target.value)}>
-              <option value="">Sem turma por enquanto</option>
-              {classrooms.filter(item => item.active).map(item =>
-                <option key={item.id} value={item.id}>{item.name}</option>)}
-            </select>
-          </label>
-        </div>
-        <button className="primary-button" disabled={busy !== null}><Plus size={17}/>
-          {busy === "create-student" ? "Cadastrando..." : "Cadastrar aluno"}</button>
-      </form>
-    </div>
-
     <section className="section-block">
       <div className="section-heading"><div><p className="eyebrow muted">ALUNOS E PARTICIPANTES</p>
         <h2>Turmas cadastradas</h2></div>
         <span className="heading-counter">{classrooms.length} {classrooms.length === 1 ? "turma" : "turmas"}</span>
       </div>
       {classrooms.length === 0 && <div className="empty-card"><span>👥</span>
-        <h3>Nenhuma turma cadastrada</h3><p>Crie uma turma acima e adicione seus alunos.</p></div>}
+        <h3>Nenhuma turma cadastrada</h3><p>Clique em "Nova turma" para cadastrar uma turma.</p></div>}
       <div className="admin-class-grid">
         {classrooms.map(item => {
           const available = students.filter(s => !item.members.some(m => m.id === s.id));

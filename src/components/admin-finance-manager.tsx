@@ -1,34 +1,21 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { CheckCircle2, CreditCard, Plus } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import { readApiJson } from "@/lib/api-client";
 import { chargeStatus, formatMoney, formatDueDate } from "@/lib/finance";
 
-type Student = { id: string; name: string;
-  guardians: Array<{ id: string; name: string; preferred: boolean }> };
 type Charge = { id: string; studentName: string; title: string; amountCents: number; dueAt: string;
   status: string; paidAt: string | null; payerLabel: string };
 type Status = "PENDING" | "PAID" | "CANCELED";
 
-export function AdminFinanceManager({ students, charges }: { students: Student[]; charges: Charge[] }) {
+export function AdminFinanceManager({ charges }: { charges: Charge[] }) {
   const router = useRouter();
-  const [studentId, setStudentId] = useState("");
-  const [title, setTitle] = useState("Mensalidade de inglês");
-  const [amount, setAmount] = useState("");
-  const [dueDate, setDueDate] = useState("");
-  const [payerType, setPayerType] = useState<"STUDENT" | "GUARDIAN">("GUARDIAN");
-  const [payerGuardianId, setPayerGuardianId] = useState("");
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState("");
   const [error, setError] = useState("");
   const [confirmation, setConfirmation] = useState<{ id: string; title: string; status: Status } | null>(null);
-  const student = students.find(s => s.id === studentId);
-  const guardians = student?.guardians || [];
-  const effectivePayer = guardians.some(g => g.id === payerGuardianId)
-    ? payerGuardianId : guardians.find(g => g.preferred)?.id || guardians[0]?.id || null;
-
   async function request(url: string, method: "POST" | "PATCH", payload: object, success: string) {
     if (busy) return false;
     setBusy(true); setNotice(""); setError("");
@@ -46,14 +33,6 @@ export function AdminFinanceManager({ students, charges }: { students: Student[]
     } finally { setBusy(false); }
   }
 
-  async function create(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const ok = await request("/api/admin/charges", "POST", {
-      studentId, title, amount, dueDate, payerType,
-      payerGuardianId: payerType === "GUARDIAN" ? effectivePayer : null,
-    }, "Cobrança criada e notificações enviadas.");
-    if (ok) { setAmount(""); setDueDate(""); }
-  }
   async function confirm() {
     if (!confirmation) return;
     const result = await request(`/api/admin/charges/${encodeURIComponent(confirmation.id)}`,
@@ -63,47 +42,6 @@ export function AdminFinanceManager({ students, charges }: { students: Student[]
   return <div className="admin-management">
     {notice && <p className="admin-feedback" role="status"><CheckCircle2 size={17}/> {notice}</p>}
     {error && <p className="admin-feedback error" role="alert">{error}</p>}
-    <form className="admin-form-card admin-finance-form" onSubmit={create}>
-      <h2><CreditCard size={22}/> Nova cobrança</h2>
-      <p>Registre uma cobrança informativa. Os pagamentos são confirmados manualmente pela escola.</p>
-      <div className="admin-fields">
-        <label className="admin-field">Aluno
-          <select required value={studentId} onChange={e => { setStudentId(e.target.value); setPayerGuardianId(""); }}>
-            <option value="">Selecione</option>
-            {students.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
-          </select>
-        </label>
-        <label className="admin-field">Descrição
-          <input required minLength={3} maxLength={120} value={title} onChange={e => setTitle(e.target.value)}/>
-        </label>
-        <label className="admin-field">Valor em reais
-          <input required inputMode="decimal" value={amount} onChange={e => setAmount(e.target.value)}
-            placeholder="189,90"/>
-        </label>
-        <label className="admin-field">Vencimento
-          <input required type="date" value={dueDate} onChange={e => setDueDate(e.target.value)}/>
-        </label>
-        <label className="admin-field">Quem é o pagante?
-          <select value={payerType} onChange={e => setPayerType(e.target.value as "STUDENT" | "GUARDIAN")}>
-            <option value="GUARDIAN">Responsável</option>
-            <option value="STUDENT">O próprio aluno</option>
-          </select>
-        </label>
-        {payerType === "GUARDIAN" && <label className="admin-field">Responsável financeiro
-          <select required value={effectivePayer || ""} onChange={e => setPayerGuardianId(e.target.value)}
-            disabled={guardians.length === 0}>
-            {!guardians.length && <option value="">Vincule um responsável primeiro</option>}
-            {guardians.map(g => <option key={g.id} value={g.id}>
-              {g.name}{g.preferred ? " · preferencial" : ""}
-            </option>)}
-          </select>
-        </label>}
-      </div>
-      <button className="primary-button" type="submit"
-        disabled={busy || !studentId || (payerType === "GUARDIAN" && !effectivePayer)}>
-        <Plus size={18}/> Cadastrar cobrança
-      </button>
-    </form>
     <section className="section-block">
       <div className="section-heading"><h2>Cobranças cadastradas</h2>
         <span className="heading-counter">{charges.length}{charges.length >= 150 ? "+" : ""}</span></div>

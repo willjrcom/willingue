@@ -17,7 +17,7 @@ export default async function AdminStudentsPage() {
   return <div className="admin-content">
     <div className="admin-page-heading"><div><p className="admin-eyebrow">GESTÃO ACADÊMICA</p>
       <h1>Alunos</h1><p>Gerencie os cadastros, vínculos e desempenho de cada estudante.</p></div>
-      <Link className="admin-action-primary" href="/administrador/turmas"><GraduationCap size={17}/> Cadastrar aluno <ArrowRight size={17}/></Link>
+      <Link className="admin-action-primary" href="/administrador/alunos/novo"><GraduationCap size={17}/> Cadastrar aluno <ArrowRight size={17}/></Link>
     </div>
     <div className="admin-dash-insights">
       <div><span><GraduationCap size={21}/></span><strong>{students.length}</strong><small>Alunos cadastrados</small></div>

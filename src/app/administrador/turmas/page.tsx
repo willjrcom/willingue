@@ -1,16 +1,11 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import { ArrowLeft, Sparkles } from "lucide-react";
-import { currentUser } from "@/lib/auth";
+import { ArrowLeft, Plus } from "lucide-react";
 import { db } from "@/lib/db";
-import { LogoutButton } from "@/components/logout-button";
 import { ClassroomManager } from "@/components/classroom-manager";
 
 export const metadata = { title: "Gerenciar turmas" };
 
 export default async function AdminClassesPage() {
-  const user = await currentUser();
-  if (!user || user.role !== "ADMIN") redirect("/login");
   const [classes, students] = await Promise.all([
     db.classroom.findMany({
       include: {
@@ -51,11 +46,9 @@ export default async function AdminClassesPage() {
   }));
   return <div className="admin-content">
 
-      <Link className="admin-back" href="/administrador"><ArrowLeft size={17}/> Voltar para administração</Link>
-      <div className="admin-intro">
-        <p className="eyebrow muted">GESTÃO ESCOLAR</p>
-        <h1>Turmas e alunos</h1>
-        <p>Organize os participantes e acompanhe a competição por lições concluídas.</p>
+      <div className="admin-page-heading"><div><p className="admin-eyebrow">GESTÃO ESCOLAR</p>
+        <h1>Turmas</h1><p>Consulte turmas, alunos vinculados e rankings. Crie uma turma quando precisar.</p></div>
+        <Link className="admin-action-primary" href="/administrador/turmas/nova"><Plus size={17}/> Nova turma</Link>
       </div>
       <ClassroomManager classrooms={classrooms} students={allStudents}/>
 

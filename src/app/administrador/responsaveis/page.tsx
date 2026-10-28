@@ -1,36 +1,28 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import { ArrowLeft, Sparkles } from "lucide-react";
-import { currentUser } from "@/lib/auth";
+import { Link2, Plus } from "lucide-react";
 import { db } from "@/lib/db";
-import { LogoutButton } from "@/components/logout-button";
 import { GuardianManager } from "@/components/guardian-manager";
 
 export const metadata = { title: "Gerenciar responsáveis" };
 
 export default async function AdminGuardiansPage() {
-  const user = await currentUser();
-  if (!user || user.role !== "ADMIN") redirect("/login");
-  const [guardians, students] = await Promise.all([
-    db.user.findMany({
-      where: { role: "GUARDIAN" },
-      include: { guardianLinks: { include: { student: { include: {
-        user: { select: { name: true } },
-      } } } } },
-      orderBy: { name: "asc" },
-    }),
-    db.studentProfile.findMany({
-      include: { user: { select: { name: true } } },
-      orderBy: { user: { name: "asc" } },
-    }),
-  ]);
+  const guardians = await db.user.findMany({
+    where: { role: "GUARDIAN" },
+    include: { guardianLinks: { include: { student: { include: {
+      user: { select: { name: true } },
+    } } } } },
+    orderBy: { name: "asc" },
+  });
   return <div className="admin-content">
 
-      <Link href="/administrador" className="admin-back"><ArrowLeft size={17}/> Voltar para administração</Link>
-      <div className="admin-intro"><p className="eyebrow muted">GESTÃO FAMILIAR</p><h1>Responsáveis</h1>
-        <p>Crie acessos e vincule um ou vários responsáveis a cada aluno.</p></div>
+      <div className="admin-page-heading"><div><p className="admin-eyebrow">GESTÃO FAMILIAR</p>
+        <h1>Responsáveis</h1><p>Consulte os responsáveis e os alunos que cada um acompanha.</p></div>
+        <div className="admin-heading-actions">
+          <Link className="admin-secondary-button" href="/administrador/responsaveis/vincular"><Link2 size={17}/> Vincular aluno</Link>
+          <Link className="admin-action-primary" href="/administrador/responsaveis/novo"><Plus size={17}/> Cadastrar responsável</Link>
+        </div>
+      </div>
       <GuardianManager
-        students={students.map(s => ({ id: s.id, name: s.nickname || s.user.name }))}
         guardians={guardians.map(g => ({
           id: g.id, name: g.name, email: g.email,
           links: g.guardianLinks.map(l => ({

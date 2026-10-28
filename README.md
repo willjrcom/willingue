@@ -156,3 +156,7 @@ Faça **redeploy** depois de configurar as variáveis e confirme o volume persis
 - Pode criar lições, definir XP e moedas, alterar trilha, publicar após criar questões; novas lições são rascunhos por segurança.
 - Criar e editar questões dos seis formatos já suportados pelo player. Respostas e opções são validadas no servidor e convertidas em JSON compatível com o sistema atual.
 - Para a prevenção de ciclos, a atualização de trilhas valida toda a cadeia ancestral.
+
+## Navegação administrativa por listagem e formulário dedicado
+
+As telas **Alunos**, **Turmas**, **Responsáveis** e **Financeiro** exibem inicialmente a listagem, sem mostrar formulários abertos. Ações de criação ficam no cabeçalho e navegam para páginas próprias: `/administrador/alunos/novo`, `/administrador/turmas/nova`, `/administrador/responsaveis/novo`, `/administrador/responsaveis/vincular` e `/administrador/financeiro/nova`. Após salvar, a página retorna à listagem. A API e os dados SQLite existentes são reaproveitados.

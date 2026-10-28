@@ -1,25 +1,18 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { CheckCircle2, Link2, Plus, UserPlus, X } from "lucide-react";
+import { CheckCircle2, X } from "lucide-react";
 import { readApiJson } from "@/lib/api-client";
 
 type Guardian = { id: string; name: string; email: string;
   links: Array<{ studentId: string; name: string; financialResponsible: boolean }> };
-type Student = { id: string; name: string };
 
-export function GuardianManager({ guardians, students }: { guardians: Guardian[]; students: Student[] }) {
+export function GuardianManager({ guardians }: { guardians: Guardian[] }) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState("");
   const [error, setError] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [guardianId, setGuardianId] = useState("");
-  const [studentId, setStudentId] = useState("");
-  const [payer, setPayer] = useState(false);
   const [remove, setRemove] = useState<{ guardianId: string; studentId: string; title: string } | null>(null);
 
   async function request(url: string, method: "POST" | "DELETE", body: object, success: string) {
@@ -38,19 +31,6 @@ export function GuardianManager({ guardians, students }: { guardians: Guardian[]
       return false;
     } finally { setBusy(false); }
   }
-  async function createGuardian(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (await request("/api/admin/guardians", "POST", { name, email, password }, "Responsável cadastrado.")) {
-      setName(""); setEmail(""); setPassword("");
-    }
-  }
-  async function linkStudent(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (await request("/api/admin/guardians/links", "POST",
-      { guardianId, studentId, financialResponsible: payer }, "Vínculo atualizado.")) {
-      setStudentId(""); setPayer(false);
-    }
-  }
   async function removeLink() {
     if (!remove) return;
     if (await request("/api/admin/guardians/links", "DELETE",
@@ -59,43 +39,6 @@ export function GuardianManager({ guardians, students }: { guardians: Guardian[]
   return <div className="admin-management">
     {notice && <p role="status" className="admin-feedback"><CheckCircle2 size={17}/> {notice}</p>}
     {error && <p role="alert" className="admin-feedback error">{error}</p>}
-    <div className="admin-class-grid">
-      <form onSubmit={createGuardian} className="admin-form-card">
-        <h2><UserPlus size={21}/> Cadastrar responsável</h2>
-        <p>O acesso poderá acompanhar mais de um aluno.</p>
-        <label className="admin-field">Nome completo
-          <input required minLength={2} maxLength={100} value={name} onChange={e => setName(e.target.value)}
-            placeholder="Nome do responsável"/></label>
-        <label className="admin-field">E-mail
-          <input required type="email" maxLength={254} value={email} onChange={e => setEmail(e.target.value)}
-            placeholder="responsavel@exemplo.com"/></label>
-        <label className="admin-field">Senha inicial
-          <input required type="password" autoComplete="new-password" minLength={8} maxLength={120}
-            value={password} onChange={e => setPassword(e.target.value)} placeholder="Pelo menos 8 caracteres"/></label>
-        <button className="primary-button" disabled={busy}><Plus size={18}/> Salvar responsável</button>
-      </form>
-      <form onSubmit={linkStudent} className="admin-form-card">
-        <h2><Link2 size={21}/> Vincular aluno</h2>
-        <p>Um aluno pode possuir mais de um responsável.</p>
-        <label className="admin-field">Responsável
-          <select required value={guardianId} onChange={e => setGuardianId(e.target.value)}>
-            <option value="">Selecione</option>
-            {guardians.map(g => <option key={g.id} value={g.id}>{g.name}</option>)}
-          </select></label>
-        <label className="admin-field">Aluno
-          <select required value={studentId} onChange={e => setStudentId(e.target.value)}>
-            <option value="">Selecione</option>
-            {students.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
-          </select></label>
-        <label className="admin-checkbox-row">
-          <input type="checkbox" checked={payer} onChange={e => setPayer(e.target.checked)}/>
-          <span>Pode ser responsável financeiro deste aluno</span>
-        </label>
-        <button className="primary-button" disabled={busy || !guardianId || !studentId}>
-          <Link2 size={18}/> Salvar vínculo
-        </button>
-      </form>
-    </div>
     <section className="section-block">
       <div className="section-heading"><h2>Responsáveis cadastrados</h2>
         <span className="heading-counter">{guardians.length}</span></div>
