@@ -56,7 +56,7 @@ export default async function MyClassPage({ searchParams }: {
   })));
   const me = ranking.find(member => member.id === student.id)!;
   const href = (classId: string, period: "semana" | "geral") =>
-    `/minha-turma?turma=${encodeURIComponent(classId)}&periodo=${period}`;
+    `/my-class?turma=${encodeURIComponent(classId)}&periodo=${period}`;
   const period = week ? "semana" : "geral";
 
   return <div className="page-stack">
@@ -100,7 +100,7 @@ export default async function MyClassPage({ searchParams }: {
       </div>
       <p className="class-note"><BookOpen size={15} style={{ display: "inline", verticalAlign: "middle" }}/> Cada lição conta uma única vez. Repetir exercícios não aumenta sua posição. Empates compartilham a mesma colocação.</p>
     </section>
-    <Link href="/aprender" className="coin-promo"><span className="promo-icon"><Sparkles size={28}/></span>
+    <Link href="/learn" className="coin-promo"><span className="promo-icon"><Sparkles size={28}/></span>
       <span><strong>Quer subir no ranking?</strong><small>Conclua uma nova lição e acompanhe sua evolução.</small></span>
       <ArrowRight size={20}/></Link>
   </div>;

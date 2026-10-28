@@ -10,7 +10,7 @@ export default async function PreferencesPage() {
   const { student } = await requireStudent();
   const experience = resolveExperience(student);
   return <div className="page-stack">
-    <Link className="back-link" href="/perfil"><ArrowLeft size={18}/> Voltar ao perfil</Link>
+    <Link className="back-link" href="/profile"><ArrowLeft size={18}/> Voltar ao perfil</Link>
     <div className="page-title">
       <p className="eyebrow muted">PERSONALIZE SUA EXPERIÊNCIA</p>
       <h1>Preferências <Settings2 size={26} style={{ verticalAlign: "middle" }}/></h1>

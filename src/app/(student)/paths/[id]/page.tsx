@@ -15,10 +15,10 @@ export default async function PathPage({ params }: { params: Promise<{ id: strin
   const crumbs = findTrailBreadcrumbs(learning.roots, id);
   if (!crumbs) notFound();
   const trail = crumbs[crumbs.length - 1];
-  const back = crumbs.length > 1 ? `/trilhas/${crumbs[crumbs.length - 2].id}` : "/aprender";
+  const back = crumbs.length > 1 ? `/paths/${crumbs[crumbs.length - 2].id}` : "/learn";
   return <div className="page-stack trail-page">
     <Link className="back-link" href={back}><ChevronLeft size={19}/> Voltar para {crumbs.length > 1 ? "a trilha anterior" : "minhas trilhas"}</Link>
-    <div className="breadcrumbs"><Link href="/aprender">Aprender</Link>{crumbs.map(p => <span key={p.id}><ChevronRight size={13}/><span>{p.title}</span></span>)}</div>
+    <div className="breadcrumbs"><Link href="/learn">Aprender</Link>{crumbs.map(p => <span key={p.id}><ChevronRight size={13}/><span>{p.title}</span></span>)}</div>
     <section className="trail-hero" style={{ "--trail-color": trail.color } as CSSProperties}>
       <div className="trail-hero-content"><p className="eyebrow">SUA JORNADA DE APRENDIZADO</p><div className="trail-hero-icon">{trail.icon}</div><h1>{trail.title}</h1><p>{trail.description}</p><span className="trail-lessons-count"><Sparkles size={16}/> {trail.completed} de {trail.total} lições concluídas</span></div>
       <div className="trail-ring"><ProgressRing value={trail.percent} size={116} stroke={12} color={trail.color}/></div>

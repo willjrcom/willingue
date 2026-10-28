@@ -12,7 +12,7 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
   if (!lesson?.published || !lesson.questions.length) notFound();
   const learning = await loadStudentLearning(student.id);
   if (!learning.allowedPathIds.has(lesson.pathId) || !learning.lessons.some(l => l.id === id)) notFound();
-  return <LessonPlayer key={lesson.id} backHref={`/trilhas/${lesson.pathId}`} completed={learning.completedLessonIds.has(lesson.id)} lesson={{
+  return <LessonPlayer key={lesson.id} backHref={`/paths/${lesson.pathId}`} completed={learning.completedLessonIds.has(lesson.id)} lesson={{
     id: lesson.id, title: lesson.title, description: lesson.description, icon: lesson.icon,
     xpReward: lesson.xpReward, coinReward: lesson.coinReward,
     questions: lesson.questions.map(q => ({ id: q.id, kind: q.kind, prompt: q.prompt, options: JSON.parse(q.options) })),

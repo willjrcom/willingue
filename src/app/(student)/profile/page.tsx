@@ -29,12 +29,12 @@ export default async function ProfilePage() {
     /><h2>{student.nickname || user.name}</h2><p>{user.email}</p><span className="profile-level"><Trophy size={16}/> {copy.levelLabel} {level.level}</span><div className="profile-progress"><div className="profile-progress-label"><span>Rumo ao nível {level.level+1}</span><strong>{student.xp}/{level.nextXp} XP</strong></div><div className="stat-meter"><span style={{ width: `${level.progress}%` }}/></div></div></section>
     <section className="profile-stats"><div><Star size={24}/><strong>{student.xp}</strong><span>XP total</span></div><div><BookOpen size={24}/><strong>{completed}</strong><span>Lições</span></div><div><Coins size={24}/><strong>{student.coins}</strong><span>Moedas</span></div><div><Medal size={24}/><strong>{redemptions}</strong><span>Prêmios</span></div></section>
     <section className="section-block"><div className="section-heading"><h2>Minhas medalhas 🏅</h2></div><div className="badge-grid"><div className={`achievement ${completed ? "earned" : ""}`}><span>🌱</span><strong>Primeiro passo</strong><small>{completed ? "Conquistada" : "Complete sua primeira lição"}</small></div><div className={`achievement ${completed>=3 ? "earned" : ""}`}><span>🚀</span><strong>Desbravador</strong><small>{completed>=3 ? "Conquistada" : "Complete 3 lições"}</small></div><div className={`achievement ${completed>=5 ? "earned" : ""}`}><span>🏆</span><strong>Super aluno</strong><small>{completed>=5 ? "Conquistada" : "Complete 5 lições"}</small></div></div></section>
-    <Link href="/contas" className="profile-preferences-link">
+    <Link href="/billing" className="profile-preferences-link">
       <span className="profile-preferences-icon"><CreditCard size={22}/></span>
       <span className="profile-preferences-text"><strong>Minhas contas</strong><small>Mensalidades, vencimentos e pagamentos da escola</small></span>
       <ChevronRight size={21} aria-hidden="true"/>
     </Link>
-    <Link href="/preferencias" className="profile-preferences-link">
+    <Link href="/preferences" className="profile-preferences-link">
       <span className="profile-preferences-icon"><Settings2 size={22}/></span>
       <span className="profile-preferences-text"><strong>Preferências</strong><small>Aparência, modo de exibição e data de nascimento</small></span>
       <ChevronRight size={21} aria-hidden="true"/>

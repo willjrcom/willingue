@@ -17,7 +17,7 @@ export default async function StudentAccounts() {
   const paid = charges.filter(c => chargeStatus(c) === "PAID");
   const overdue = charges.filter(c => chargeStatus(c) === "OVERDUE");
   return <div className="page-stack">
-    <Link className="back-link" href="/perfil"><ArrowLeft size={18}/> Voltar ao perfil</Link>
+    <Link className="back-link" href="/profile"><ArrowLeft size={18}/> Voltar ao perfil</Link>
     <div className="page-title"><p className="eyebrow muted">PAGAMENTOS ESCOLARES</p>
       <h1>Minhas contas <CreditCard size={26} style={{ verticalAlign: "middle" }}/></h1>
       <p>Acompanhe vencimentos e pagamentos registrados pela escola.</p></div>
