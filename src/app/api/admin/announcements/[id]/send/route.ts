@@ -21,7 +21,7 @@ export async function POST(request:Request,{params}:{params:Promise<{id:string}>
       for(let offset=0;offset<recipients.length;offset+=300){
         await tx.notification.createMany({data:recipients.slice(offset,offset+300).map(person=>({
           userId:person.userId,title:notice.title,message:notice.message,
-          href:person.role==="STUDENT"?"/notificacoes":"/responsavel/notificacoes",
+          href:person.role==="STUDENT"?"/notifications":"/guardian/notifications",
         }))});
       }
     });

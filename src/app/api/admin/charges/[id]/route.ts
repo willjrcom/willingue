@@ -34,7 +34,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
       if (recipients.length) await tx.notification.createMany({
         data: recipients.map(userId => ({
           userId, title: statusTitle, message: existing.title,
-          href: userId === existing.student.userId ? "/contas" : "/responsavel/financeiro",
+          href: userId === existing.student.userId ? "/billing" : "/guardian/finance",
         })),
       });
     });

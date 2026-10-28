@@ -52,7 +52,7 @@ export async function POST(request: Request) {
         data: recipients.map(userId => ({
           userId, title: "Nova cobrança da escola",
           message: `${input.title} — vencimento em ${input.dueDate.split("-").reverse().join("/")}`,
-          href: userId === student.userId ? "/contas" : "/responsavel/financeiro",
+          href: userId === student.userId ? "/billing" : "/guardian/finance",
         })),
       });
       return created;
