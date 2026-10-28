@@ -399,3 +399,22 @@
 .student-finance-metrics{margin:0}
 @media(max-width:700px){.guardian-container{padding:24px 16px 108px}.guardian-child-grid,.guardian-highlight-row{grid-template-columns:1fr}.guardian-hero{padding:24px}.guardian-metrics{gap:8px}.guardian-metrics>div{padding:13px}.guardian-metrics strong{font-size:21px}.guardian-metrics strong.guardian-money{font-size:16px}}
 @media(max-width:430px){.guardian-hero-icon{font-size:49px}.guardian-hero h2{font-size:22px}.guardian-role-chip{font-size:10px}.guardian-nav>a{font-size:10px}.guardian-topbar{padding:0 15px}.guardian-metrics span{font-size:10px}.guardian-metrics strong{font-size:19px}.guardian-metrics strong.guardian-money{font-size:14px}.finance-charge{padding:13px}.finance-charge-main{gap:8px}.finance-charge-right strong{font-size:16px}.guardian-student-emoji{width:66px;height:66px;font-size:44px}.guardian-student-hero{padding:16px}}
+
+/* Admin family linking and manual billing */
+.admin-checkbox-row{display:flex;align-items:center;gap:9px;border:1px solid #eee8fa;padding:14px;border-radius:12px;font-size:12px;font-weight:700;color:#62597d}
+.admin-checkbox-row input{width:18px;height:18px;accent-color:var(--purple);flex-shrink:0}
+.admin-form-card h2 svg{vertical-align:middle;color:var(--purple);margin-right:5px}
+.admin-finance-form{max-width:960px}
+.admin-finance-list{display:grid;gap:11px}
+.admin-finance-item{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:16px;background:white;border:1px solid #e9e5f5;border-radius:15px;padding:18px}
+.admin-finance-info{display:grid;gap:5px;min-width:0}
+.admin-finance-info strong{font-size:14px;overflow-wrap:anywhere}
+.admin-finance-info span{font-size:12px;color:#948bad}
+.admin-finance-info small{font-size:11px;color:#aaa2b9}
+.admin-finance-amount{display:grid;justify-items:end;gap:6px}
+.admin-finance-amount strong{font-size:17px;white-space:nowrap}
+.admin-finance-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end;max-width:235px}
+.admin-finance-actions button{font-size:10px}
+.admin-feedback{display:flex;align-items:center;gap:9px}
+@media(max-width:750px){.admin-finance-item{grid-template-columns:minmax(0,1fr) auto}.admin-finance-actions{grid-column:1/-1;max-width:unset;justify-content:flex-start}}
+@media(max-width:470px){.admin-finance-item{padding:14px}.admin-finance-amount strong{font-size:15px}}

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { ArrowRight, ClipboardList, GraduationCap, Layers, Sparkles, UsersRound } from "lucide-react";
+import { ArrowRight, ClipboardList, CreditCard, GraduationCap, Layers, Sparkles, UsersRound } from "lucide-react";
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { LogoutButton } from "@/components/logout-button";
@@ -32,9 +32,17 @@ export default async function AdminPage() {
         <div><h2>Gestão de turmas</h2><p>Cadastre turmas, vincule alunos e acompanhe os rankings de lições concluídas.</p></div>
         <Link href="/administrador/turmas" className="primary-button">Gerenciar turmas <ArrowRight size={18}/></Link>
       </section>
+      <section className="admin-section">
+        <div><h2>Responsáveis</h2><p>Crie acessos e vincule responsáveis aos alunos, indicando quem pode responder financeiramente.</p></div>
+        <Link href="/administrador/responsaveis" className="primary-button">Gerenciar responsáveis <ArrowRight size={18}/></Link>
+      </section>
+      <section className="admin-section">
+        <div><h2>Financeiro escolar</h2><p>Cadastre cobranças, escolha o pagante e registre os pagamentos recebidos.</p></div>
+        <Link href="/administrador/financeiro" className="primary-button"><CreditCard size={18}/> Abrir financeiro <ArrowRight size={18}/></Link>
+      </section>
       <div className="admin-planned">
         <div><Layers size={24}/><strong>Trilhas e conteúdo</strong><span>Editor administrativo em desenvolvimento</span></div>
-        <div><ClipboardList size={24}/><strong>Financeiro</strong><span>Cobranças e responsáveis em desenvolvimento</span></div>
+        <div><ClipboardList size={24}/><strong>Relatórios</strong><span>Relatórios consolidados em desenvolvimento</span></div>
       </div>
     </div>
   </main>;

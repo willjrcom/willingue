@@ -8,11 +8,12 @@ export default async function GuardianNotifications() {
   const notifications = await db.notification.findMany({
     where: { userId: user.id }, orderBy: { createdAt: "desc" }, take: 50,
   });
-  return <div className="guardian-stack"><div className="guardian-page-title">
-    <p className="guardian-eyebrow">AVISOS IMPORTANTES</p><h1>Notificações</h1></div>
-    <NotificationsList items={notifications.map(item => ({
-      id: item.id, title: item.title, message: item.message, href: item.href,
-      createdAt: item.createdAt.toISOString(), readAt: item.readAt?.toISOString() ?? null,
+  return <div className="guardian-stack">
+    <div className="guardian-page-title"><p className="guardian-eyebrow">AVISOS IMPORTANTES</p><h1>Notificações</h1></div>
+    <NotificationsList items={notifications.map(n => ({
+      id: n.id, title: n.title, message: n.message, href: n.href,
+      read: Boolean(n.readAt), date: n.createdAt.toLocaleDateString("pt-BR",
+        { day: "2-digit", month: "short", year: "numeric" }),
     }))}/>
   </div>;
 }

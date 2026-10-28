@@ -128,3 +128,10 @@ Faça **redeploy** depois de configurar as variáveis e confirme o volume persis
 - O aluno vê suas cobranças em **Meu perfil → Minhas contas**; o responsável tem **Financeiro** como aba principal, podendo filtrar por estudante e situação.
 - Administradores poderão cadastrar vínculos e cobranças, escolher pagante e registrar pagamentos manualmente; nenhuma integração bancária está ativa.
 - `DEMO_SEED=true` vincula `responsavel@willingue.app` ao Alex e inclui três cobranças fictícias. O seed preserva edições em cobranças preexistentes.
+
+## Operação administrativa de responsáveis e cobranças
+
+- `/administrador/responsaveis`: cadastro de responsáveis com senha inicial (bcrypt), inclusão/remoção de vínculos, identificação de responsável financeiro em cada vínculo.
+- `/administrador/financeiro`: criar cobrança manual por aluno, definir pagante (aluno ou responsável já vinculado), acompanhar situação, registrar como paga, reabrir ou cancelar. Alterações não processam transações reais.
+- Cobranças e vínculos são modificáveis somente por administrador autenticado, com validação de entrada no servidor. As telas do aluno e do responsável são **somente leitura**.
+- A inclusão de uma cobrança gera aviso no sino do aluno e dos responsáveis vinculados. Uma alteração de status também informa as pessoas vinculadas.
