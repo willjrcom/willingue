@@ -252,3 +252,41 @@
 .admin-dialog-actions button{padding:12px 16px;border:0;border-radius:11px;font-weight:800;font-size:12px}
 @media(max-width:750px){.admin-class-grid,.admin-planned{grid-template-columns:1fr}.admin-section{flex-direction:column;align-items:stretch}.admin-section .primary-button{width:max-content}}
 @media(max-width:560px){.admin-fields,.admin-stat-grid{grid-template-columns:1fr}.admin-container{padding:25px 16px 55px}.admin-header{padding:0 16px}.admin-header .logout-button{font-size:11px;padding:8px}.class-banner{padding:20px}.class-banner-icon{font-size:37px}.class-ranking-row{padding:12px 10px;gap:9px}.class-ranking-avatar{width:40px;height:40px;font-size:24px}.class-ranking-lessons strong{font-size:19px}.admin-form-card,.admin-class-card{padding:16px}}
+
+/* Student profile editing and preferences navigation */
+.profile-avatar-wrap{width:max-content;position:relative;margin:0 auto 20px}
+.profile-avatar-wrap .profile-avatar{margin:0}
+.profile-avatar-edit{position:absolute;top:1px;right:-7px;width:39px;height:39px;display:grid;place-items:center;color:#fff;background:var(--purple);border:3px solid #fff;border-radius:50%;box-shadow:0 4px 15px #4d397d38}
+.profile-avatar-edit:hover{transform:translateY(-1px);background:var(--purple-dark)}
+.profile-preferences-link{display:flex;align-items:center;gap:14px;border:1px solid var(--border);border-radius:19px;background:#fff;padding:17px 19px;box-shadow:var(--shadow)}
+.profile-preferences-link:hover{border-color:var(--purple)}
+.profile-preferences-icon{width:47px;height:47px;flex-shrink:0;display:grid;place-items:center;border-radius:14px;background:#eeeafd;color:var(--purple)}
+.profile-preferences-text{display:grid;gap:4px;flex:1;min-width:0}
+.profile-preferences-text strong{font-size:16px}
+.profile-preferences-text small{color:var(--muted);font-size:12px;line-height:1.4}
+.profile-preferences-link>svg{color:var(--purple);flex-shrink:0}
+.profile-edit-backdrop{position:fixed;inset:0;z-index:100;background:#201a3b9e;display:flex;align-items:center;justify-content:center;padding:16px;overflow-y:auto}
+.profile-edit-dialog{background:#fff;border-radius:24px;width:min(100%,480px);max-height:calc(100dvh - 32px);overflow:auto;padding:24px;box-shadow:0 26px 90px #130d362b}
+.profile-edit-header{display:flex;justify-content:space-between;align-items:start;gap:12px;margin-bottom:18px}
+.profile-edit-header .eyebrow{margin-bottom:7px}
+.profile-edit-header h2{margin:0}
+.profile-edit-close{width:36px;height:36px;display:grid;place-items:center;border:0;border-radius:11px;background:#f3f0fa;color:var(--ink)}
+.profile-edit-form{display:grid;gap:15px}
+.profile-edit-field{display:grid;gap:7px;font-size:13px;font-weight:800;color:var(--ink)}
+.profile-edit-field>span{font-size:11px;font-weight:500;color:var(--muted)}
+.profile-edit-field input{width:100%;border:1px solid #e5dfef;background:#fff;border-radius:12px;padding:12px;color:var(--ink);font-size:14px;outline-offset:2px}
+.profile-edit-field input[readonly]{background:#f6f7f9;color:var(--muted)}
+.profile-edit-avatars{border:0;padding:0;margin:0;min-width:0}
+.profile-edit-avatars legend{font-size:13px;font-weight:800;margin-bottom:10px}
+.profile-edit-avatar-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.profile-edit-avatar{position:relative;min-height:83px;display:grid;justify-items:center;align-content:center;gap:5px;border:2px solid #eeeaf5;border-radius:14px;background:#fbfaff;padding:9px 4px}
+.profile-edit-avatar.selected{border-color:var(--purple);background:#f0ebff}
+.profile-edit-avatar>span{font-size:28px}
+.profile-edit-avatar small{font-size:10px;color:var(--muted);text-align:center}
+.profile-edit-avatar-check{position:absolute;top:3px;right:3px;background:var(--purple);border-radius:50%;color:#fff;padding:2px}
+.profile-edit-avatars>p{font-size:11px;color:var(--muted);margin:9px 0 0}
+.profile-edit-actions{display:flex;justify-content:flex-end;gap:9px;flex-wrap:wrap;padding-top:5px}
+.experience-adult .profile-preferences-link,.experience-adult .profile-edit-dialog{border-radius:14px}
+.experience-adult .profile-preferences-icon{background:#eaf2f4}
+.experience-adult .profile-edit-avatar.selected{background:#eaf2f4}
+@media(max-width:560px){.profile-edit-dialog{padding:19px;border-radius:18px}.profile-edit-avatar-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.profile-preferences-link{padding:14px}.profile-preferences-text small{font-size:11px}}

@@ -110,3 +110,11 @@ Faça **redeploy** depois de configurar as variáveis e confirme o volume persis
 - As operações administrativas exigem sessão com papel `ADMIN`, validação de entrada e verificações de origem.
 - Migration incremental cria `Classroom` e `ClassroomMember` sem alterar progresso já registrado.
 - Com `DEMO_SEED=true`, a conta Alex é vinculada à **Turma A1 · Exploradores** junto com quatro colegas fictícios que têm lições concluídas para ilustrar o ranking. O seed não altera as conclusões do Alex.
+
+## Edição do perfil e preferências
+
+- O card **Meu perfil** mostra um botão de editar sobre o canto superior direito do avatar, abrindo um modal (sem confirmação nativa).
+- O aluno pode atualizar nome, apelido de exibição e escolher entre o avatar padrão e avatares já resgatados. O e-mail é exibido como somente leitura e é gerenciado pela escola.
+- A API `POST /api/profile/details` valida o acesso do aluno, os campos, a origem da solicitação e a propriedade de avatares; salva nome e dados de apresentação em uma transação SQLite.
+- O card **Preferências** abre `/preferencias`, página separada com os três estilos por idade e data de nascimento. As configurações existentes são mantidas, sem nova migration.
+- O progresso, as moedas, as lições e os vínculos com turmas não são afetados.
