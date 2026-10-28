@@ -13,7 +13,7 @@ export default function OpenGraphImage(){
        <path d="M39 56L66 138L96 86L126 138L153 56" stroke="white" strokeWidth="18" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
       </svg>
      </div>
-     <div style={{fontSize:49,fontWeight:900,color:"#292548",letterSpacing:-3}}>Willingue<span style={{color:"#6754e8"}}>.</span></div>
+     <div style={{fontSize:49,fontWeight:900,color:"#292548",letterSpacing:-3,display:"flex",alignItems:"baseline"}}>Willingue<span style={{color:"#6754e8"}}>.</span></div>
     </div>
     <div style={{fontWeight:900,color:"#272248",fontSize:63,lineHeight:1.1,letterSpacing:-3}}>
      Aprender inglês é uma conquista.
