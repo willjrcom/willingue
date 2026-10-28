@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { CheckCircle2, X } from "lucide-react";
+import { ArrowRight, CheckCircle2, Eye, GraduationCap, Search, X } from "lucide-react";
 import { readApiJson } from "@/lib/api-client";
 
 type Guardian = { id: string; name: string; email: string;
@@ -11,6 +12,7 @@ type Guardian = { id: string; name: string; email: string;
 export function GuardianManager({ guardians }: { guardians: Guardian[] }) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
+  const [search, setSearch] = useState("");
   const [notice, setNotice] = useState("");
   const [error, setError] = useState("");
   const [remove, setRemove] = useState<{ guardianId: string; studentId: string; title: string } | null>(null);
@@ -42,18 +44,20 @@ export function GuardianManager({ guardians }: { guardians: Guardian[] }) {
     <section className="section-block">
       <div className="section-heading"><h2>Responsáveis cadastrados</h2>
         <span className="heading-counter">{guardians.length}</span></div>
+      <label className="admin-searchbox admin-guardian-search"><Search size={18}/><input aria-label="Buscar responsáveis" value={search} onChange={e=>setSearch(e.target.value)} placeholder="Buscar pelo nome ou e-mail do responsável..."/></label>
       <div className="admin-class-grid">
-        {guardians.map(g => <article className="admin-class-card" key={g.id}>
-          <header><div><h3>{g.name}</h3><p>{g.email}</p></div>
+        {guardians.filter(g=>(g.name+" "+g.email+" "+g.links.map(l=>l.name).join(" ")).toLocaleLowerCase("pt-BR").includes(search.trim().toLocaleLowerCase("pt-BR"))).map(g => <article className="admin-class-card" key={g.id}>
+          <header><div><h3><Link href={`/administrador/responsaveis/${g.id}`} className="admin-guardian-title-link">{g.name} <ArrowRight size={17}/></Link></h3><p>{g.email}</p></div>
             <span className="admin-class-count">{g.links.length} aluno(s)</span></header>
           <div className="admin-class-member-list">{g.links.length ? g.links.map(l =>
             <div className="admin-class-member" key={l.studentId}>
               <span className="admin-class-member-icon">🎓</span>
-              <span><strong>{l.name}</strong><small>{l.financialResponsible ? "Responsável financeiro" : "Acompanhamento"}</small></span>
+              <span><strong><Link href={`/administrador/alunos/${l.studentId}`} className="admin-guardian-title-link">{l.name}</Link></strong><small>{l.financialResponsible ? "Responsável financeiro" : "Acompanhamento"}</small></span>
               <button type="button" className="admin-minor danger" aria-label={`Remover vínculo de ${l.name}`}
                 onClick={() => setRemove({ guardianId: g.id, studentId: l.studentId,
                   title: `${g.name} e ${l.name}` })}><X size={17}/></button>
             </div>) : <p className="muted-note">Nenhum aluno vinculado.</p>}</div>
+          <Link href={`/administrador/responsaveis/${g.id}`} className="admin-guardian-card-footer"><Eye size={17}/> Ver filhos, lições, tarefas e financeiro <ArrowRight size={17}/></Link>
         </article>)}
         {guardians.length === 0 && <div className="empty-card">Nenhum responsável cadastrado ainda.</div>}
       </div>
