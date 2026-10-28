@@ -229,3 +229,30 @@ model Charge {
   @@index([studentId, dueAt])
   @@index([status, dueAt])
 }
+
+/** Administrative announcements are stored even after delivery. */
+model Announcement {
+  id             String    @id @default(cuid())
+  title          String
+  message        String
+  audience       String    @default("ALL")
+  classroomId    String?
+  createdBy      String
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  sentAt         DateTime?
+  recipientCount Int       @default(0)
+
+  @@index([sentAt, createdAt])
+}
+
+/** Single-school settings for the current Willingue installation. */
+model SchoolSettings {
+  id                  String   @id
+  schoolName          String   @default("Willingue")
+  description         String   @default("")
+  contactEmail        String   @default("")
+  defaultLessonXp     Int      @default(30)
+  defaultLessonCoins  Int      @default(15)
+  updatedAt           DateTime @updatedAt
+}
