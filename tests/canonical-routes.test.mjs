@@ -9,7 +9,7 @@ const legacySegments = new Set([
   "comunicados","configuracoes","financeiro","relatorios","responsaveis","turmas",
   "novo","nova","vincular",
 ]);
-const oldPathSegment = new RegExp("/("+[...legacySegments].join("|")+")(?=/|[\\s\\\"'\x60?#)\\]\\}]|$)","g");
+const oldPathSegment = new RegExp("/("+[...legacySegments].join("|")+")(?![A-Za-z0-9_-])","g");
 
 function listSources(folder) {
   return readdirSync(folder).flatMap((name)=>{
