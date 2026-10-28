@@ -1,11 +1,13 @@
 import { redirect } from "next/navigation";
 import { currentUser } from "@/lib/auth";
 import { LoginForm } from "@/components/login-form";
+import { DemoAccounts } from "@/components/demo-accounts";
+import { homeForRole } from "@/lib/role-path";
 import { Sparkles, Trophy, WandSparkles } from "lucide-react";
 
 export default async function LoginPage() {
   const user = await currentUser();
-  if (user?.role === "STUDENT" && user.student) redirect("/aprender");
+  if (user && homeForRole(user) !== "/login") redirect(homeForRole(user));
   return <main className="login-page"><div className="login-deco deco-one"/><div className="login-deco deco-two"/>
     <div className="login-wrap">
       <div className="login-intro"><div className="login-logo"><Sparkles size={28}/> Willingue<span>.</span></div>
@@ -14,7 +16,10 @@ export default async function LoginPage() {
         <p>Aprenda no seu ritmo, ganhe moedas e descubra novos desafios todos os dias.</p>
         <div className="login-pills"><span><Trophy size={16}/> Ganhe conquistas</span><span><WandSparkles size={16}/> Evolua brincando</span></div>
       </div>
-      <div className="login-card"><div className="login-heading"><span className="welcome-wave">👋</span><h2>Que bom te ver!</h2><p>Entre para continuar sua aventura.</p></div><LoginForm demoEnabled={process.env.DEMO_SEED === "true"}/></div>
+      <div className="login-actions-column">
+        <div className="login-card"><div className="login-heading"><span className="welcome-wave">👋</span><h2>Que bom te ver!</h2><p>Entre para continuar sua aventura.</p></div><LoginForm/></div>
+        {process.env.DEMO_SEED === "true" && <DemoAccounts/>}
+      </div>
     </div>
   </main>;
 }

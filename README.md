@@ -69,3 +69,17 @@ Gestão administrativa, geração de conteúdo com IA, responsáveis, financeiro
 npm run test:unit
 npm run build
 ```
+
+## Perfis de demonstração no login
+
+Com `DEMO_SEED=true`, abaixo do card de login aparecem os botões **Gerar usuário**, **Gerar admin** e **Gerar responsável**. Cada um cria (ou reutiliza) sua conta fixa, mostra as credenciais e oferece **Entrar neste perfil**:
+
+| Perfil | E-mail | Senha |
+|---|---|---|
+| Aluno | `aluno@willingue.app` | `Demo@12345` |
+| Administrador | `admin@willingue.app` | `Demo@12345` |
+| Responsável | `responsavel@willingue.app` | `Demo@12345` |
+
+A criação é bloqueada quando `DEMO_SEED` não for `true`; o login e as sessões desses e-mails de demonstração também são recusados após desabilitar a variável. **Não utilize essa modalidade em um ambiente com dados reais:** qualquer visitante da demonstração pode gerar/usar o administrador fictício.
+
+As telas de administrador e responsável são provisórias, apenas para demonstrar entrada por perfil. Cadastros, vínculos, financeiro e dashboards ainda não foram implementados.

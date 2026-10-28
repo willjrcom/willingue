@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { SignJWT, jwtVerify } from "jose";
 import { db } from "@/lib/db";
+import { isDemoAccount } from "@/lib/demo";
 
 const cookieName = "willingue_session";
 const lifetime = 60 * 60 * 24 * 7;
@@ -35,7 +36,9 @@ export async function currentUser() {
   try {
     const { payload } = await jwtVerify(token, secret(), { algorithms: ["HS256"] });
     if (typeof payload.sub !== "string") return null;
-    return await db.user.findUnique({ where: { id: payload.sub }, include: { student: true } });
+    const user = await db.user.findUnique({ where: { id: payload.sub }, include: { student: true } });
+    if (user && isDemoAccount(user.email) && process.env.DEMO_SEED !== "true") return null;
+    return user;
   } catch { return null; }
 }
 
