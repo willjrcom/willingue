@@ -48,3 +48,111 @@
 .demo-portal-features span{display:flex;align-items:center;gap:10px;border-radius:12px;padding:12px;background:#f6f3ff;color:#64548a;font-size:13px;font-weight:750}
 .demo-portal-features svg{color:#7658df}
 @media(max-width:560px){.login-actions-column{width:100%}.demo-accounts{padding:17px 13px}.demo-account-button{font-size:10px}.demo-account-result-actions{grid-template-columns:1fr 1.3fr}}
+
+
+/* Age-adaptive experiences: same features and data, different presentation. */
+.experience-kids{background:#f7f7fd}
+.experience-teen{--purple:#5266db;--purple-dark:#3649b0;--ink:#202a50;--muted:#697693;--bg:#f4f6ff;--border:#e3e7f7;--shadow:0 8px 30px rgba(26,40,94,.06);background:var(--bg)}
+.experience-teen .welcome-banner{background:linear-gradient(120deg,#243663,#475bd1 70%,#6b86f3);border-radius:24px;box-shadow:0 14px 36px #354bb12b}
+.experience-teen .welcome-illustration{font-size:100px;right:10%;bottom:21px;transform:rotate(8deg)}
+.experience-teen .stat-card,.experience-teen .trail-summary,.experience-teen .journey-card{border-radius:16px}
+.experience-teen .profile-avatar{background:#e4eafa;box-shadow:0 0 0 3px #c0d0f4}
+.experience-teen .coin-promo{background:#eaf0ff;border-color:#cad9fa}
+.experience-teen .promo-icon{color:#4561d2;background:#dce6ff}
+.experience-teen .coin-promo small{color:#6b7ba2}
+.experience-teen .stat-meter span{background:#5266db}
+.experience-teen .quiz-progress span{background:#5266db}
+.experience-adult{--purple:#21617a;--purple-dark:#14475e;--ink:#24313d;--muted:#6b7785;--bg:#f5f7f8;--border:#e2e7ea;--shadow:0 2px 10px #2636420b;background:var(--bg)}
+.experience-adult .topbar{border-color:#e3e8eb}
+.experience-adult .brand-mark{border-radius:10px;box-shadow:none}
+.experience-adult .header-icon{background:#edf3f5;color:var(--purple)}
+.experience-adult .bottom-nav{border-color:#e5eaee;border-radius:14px 14px 0 0;box-shadow:0 -4px 24px #182e3915}
+.experience-adult .nav-item{color:#687c8b}
+.experience-adult .nav-item.active svg{filter:none}
+.experience-adult .greeting h1{font-size:clamp(24px,4vw,33px)}
+.experience-adult .greeting p:not(.eyebrow),.experience-adult .page-title p:not(.eyebrow){color:#667684}
+.experience-adult .muted{color:#70808b}
+.experience-adult .welcome-banner{background:#fff;color:var(--ink);border:1px solid var(--border);border-radius:15px;min-height:0;padding:25px 28px;box-shadow:none}
+.experience-adult .welcome-banner:before{display:none}
+.experience-adult .banner-tag{background:#eaf2f4;color:var(--purple-dark);border:0;border-radius:7px}
+.experience-adult .welcome-banner h2{font-size:clamp(23px,4vw,30px);margin:12px 0 8px}
+.experience-adult .welcome-banner p{color:var(--muted);margin-bottom:15px}
+.experience-adult .banner-cta{background:var(--purple);color:white;border-radius:9px;box-shadow:none}
+.experience-adult .welcome-illustration{display:none}
+.experience-adult .stats-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.experience-adult .stat-card{min-height:130px;padding:17px;border-radius:12px}
+.experience-adult .stat-card:nth-child(4){display:none}
+.experience-adult .stat-icon{width:34px;height:34px;border-radius:9px;margin-bottom:8px}
+.experience-adult .stat-card>strong{font-size:26px}
+.experience-adult .stat-meter span,.experience-adult .quiz-progress span{background:var(--purple)}
+.experience-adult .heading-counter{background:#e8eff2;color:var(--purple-dark)}
+.experience-adult .trail-grid{grid-template-columns:1fr;gap:9px}
+.experience-adult .trail-summary{border-color:var(--border);border-radius:12px;padding:13px 17px;display:grid;grid-template-columns:110px 1fr;column-gap:11px;align-items:center}
+.experience-adult .trail-summary:hover{transform:none;box-shadow:var(--shadow)}
+.experience-adult .trail-summary-top{grid-row:1/4;align-self:center}
+.experience-adult .trail-icon{font-size:24px;width:45px;height:45px;border-radius:10px}
+.experience-adult .trail-summary-top .ring-wrap{transform:scale(.79);transform-origin:center}
+.experience-adult .trail-summary h3{margin:0 0 4px;font-size:16px}
+.experience-adult .trail-summary p{font-size:12px;min-height:0}
+.experience-adult .trail-summary-foot{margin-top:8px;color:#6d7f88}
+.experience-adult .round-arrow{background:#edf3f5}
+.experience-adult .trail-hero{border-radius:14px;border-color:var(--border);padding:23px}
+.experience-adult .trail-hero:before{display:none}
+.experience-adult .vertical-trail{gap:12px;max-width:860px}
+.experience-adult .trail-vertical-line{display:none}
+.experience-adult .journey-step,.experience-adult .journey-step.position-1,.experience-adult .journey-step.position-2{margin-left:0;min-height:82px}
+.experience-adult .journey-bubble{height:66px;width:66px;flex-basis:66px;font-size:30px;border-radius:12px;border:0;box-shadow:none}
+.experience-adult .journey-card{border-radius:12px;padding:14px 17px;min-height:74px}
+.experience-adult .journey-card strong{font-size:15px}
+.experience-adult .step-go{margin-right:11px}
+.experience-adult .quiz-shell{border-color:var(--border);border-radius:14px;box-shadow:none}
+.experience-adult .quiz-progress{height:7px;background:#e8eef2}
+.experience-adult .profile-card{border-radius:15px;border-color:var(--border)}
+.experience-adult .profile-avatar{width:93px;height:93px;font-size:55px;background:#edf3f5;box-shadow:0 0 0 2px #cadde3;border-width:4px}
+.experience-adult .profile-level{background:#eaf2f4;color:var(--purple-dark)}
+.experience-adult .profile-stats>div{border-radius:12px;border-color:var(--border)}
+.experience-adult .coin-promo{background:#eaf2f4;border-color:var(--border)}
+.experience-adult .primary-button{box-shadow:none}
+.experience-adult .primary-button:hover:not(:disabled){background:#174b62}
+.experience-adult .rewards-grid .reward-card{border-radius:12px}
+.experience-adult .activity-card{border-color:var(--border);border-radius:12px}
+.experience-adult .activity-overview{border-radius:12px;background:#eaf2f4}
+.experience-adult .activity-overview-icon{background:#d4e7ec;color:var(--purple)}
+.experience-settings{background:white;border:1px solid var(--border);border-radius:22px;box-shadow:var(--shadow);padding:23px;display:grid;gap:17px}
+.experience-settings-header{display:flex;align-items:center;gap:12px}
+.experience-settings-header h2{font-size:19px;margin:0 0 5px}
+.experience-settings-header p{font-size:12px;color:var(--muted);margin:0}
+.experience-settings-icon{display:grid;place-items:center;width:45px;height:45px;background:#ede9ff;color:var(--purple);border-radius:13px;flex-shrink:0}
+.experience-current{font-size:12px;color:var(--muted);margin:0}
+.experience-current strong{color:var(--purple)}
+.experience-options{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.experience-option{display:flex;flex-direction:column;gap:5px;align-items:center;justify-content:center;min-height:102px;padding:11px 5px;background:#fafafe;border:1.5px solid #e9e6f1;color:var(--ink);border-radius:14px}
+.experience-option.active{background:#f0ecff;border-color:var(--purple)}
+.experience-option-icon{font-size:23px}
+.experience-option strong{font-size:12px}
+.experience-option small{color:var(--muted);font-size:10px;text-align:center}
+.experience-birthdate{display:grid;gap:8px;font-size:13px;font-weight:800}
+.experience-birthdate span{font-size:11px;font-weight:500;color:var(--muted)}
+.experience-birthdate input{width:100%;max-width:300px;padding:11px;border:1px solid var(--border);border-radius:10px;background:#fff;color:var(--ink)}
+.experience-help{font-size:11px;color:var(--muted);margin:0}
+.experience-save{width:max-content}
+.experience-success{display:flex;gap:8px;align-items:center;color:#217452;background:#eaf8f0;border-radius:10px;padding:12px;font-size:12px;margin:0}
+.experience-adult .experience-settings{border-radius:14px}
+.experience-adult .experience-option{border-radius:9px;background:#f8fafb;border-color:#dee8ec}
+.experience-adult .experience-option.active{background:#e9f2f4;border-color:var(--purple)}
+.experience-adult .experience-settings-icon{background:#eaf2f4}
+@media(max-width:560px){
+ .experience-options{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .experience-settings{padding:17px;gap:15px}
+ .experience-adult .stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .experience-adult .stat-card:nth-child(3){grid-column:span 2}
+ .experience-adult .welcome-banner{padding:22px 19px}
+ .experience-adult .trail-summary{grid-template-columns:93px 1fr;padding:12px 13px}
+ .experience-adult .trail-icon{height:40px;width:40px;font-size:23px}
+ .experience-adult .trail-summary-top .ring-wrap{transform:scale(.7)}
+ .experience-adult .journey-bubble{height:54px;width:54px;flex-basis:54px;font-size:25px}
+ .experience-adult .journey-step{gap:10px}
+ .experience-adult .journey-card{padding:12px}
+ .experience-adult .step-go{margin-right:3px;margin-left:-26px}
+ .experience-teen .welcome-illustration{font-size:65px;right:4%;bottom:18px}
+}

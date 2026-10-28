@@ -83,7 +83,7 @@ async function main() {
     email: 'aluno@willingue.app', name: 'Alex', passwordHash,
   }, update: { passwordHash } });
   const student = await db.studentProfile.upsert({ where: { userId: user.id }, create: {
-    userId: user.id, nickname: 'Alex', xp: 0, coins: 75, selectedAvatar: '🦊',
+    userId: user.id, nickname: 'Alex', xp: 0, coins: 75, selectedAvatar: '🦊', birthDate: new Date('2017-06-10T12:00:00.000Z'),
   }, update: {} });
   await db.notification.upsert({ where: { id: 'demo-welcome-notification' }, create: {
     id: 'demo-welcome-notification', userId: user.id, title: 'Bem-vindo ao Willingue! 👋',

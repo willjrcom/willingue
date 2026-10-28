@@ -26,6 +26,8 @@ model StudentProfile {
   xp              Int                @default(0)
   coins           Int                @default(0)
   selectedAvatar  String?            @default("🦊")
+  birthDate       DateTime?
+  interfaceMode   String             @default("AUTO")
   lastCompletedAt DateTime?
   enrollments     PathEnrollment[]
   completions     LessonCompletion[]

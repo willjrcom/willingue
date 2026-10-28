@@ -89,3 +89,14 @@ As telas de administrador e responsável são provisórias, apenas para demonstr
 O `DATABASE_URL` identifica o arquivo SQLite (em produção, `file:/app/data/willingue.db`). **Também é obrigatório configurar `AUTH_SECRET` com 32 ou mais caracteres**: a criação de uma conta demo pode funcionar sem ele, mas o login falhará ao tentar assinar o cookie de sessão. Corrigimos a API para retornar um erro JSON legível quando essa configuração falta, em vez de uma resposta vazia. Os formulários também tratam respostas vazias/HTML sem mostrar o erro técnico `Unexpected end of JSON input`.
 
 Faça **redeploy** depois de configurar as variáveis e confirme o volume persistente em `/app/data`. O erro completo fica no log do serviço no Dokploy.
+
+## Experiência do aluno adaptada à idade
+
+- **Até 11 anos:** interface Kids, mais visual e lúdica.
+- **De 12 a 17 anos:** interface Teen, com foco em desafios e linguagem jovem.
+- **A partir dos 18 anos:** interface Adulto, mais compacta e objetiva.
+- A data de nascimento é opcional. O app calcula o perfil automaticamente a partir dela, quando informada.
+- Em **Meu perfil → Aparência do aplicativo**, o aluno pode usar o modo automático ou escolher manualmente um dos três estilos para demonstração e acessibilidade.
+- Sem data de nascimento, o modo automático usa a experiência Kids para preservar os cadastros existentes.
+- A adaptação altera **apenas a apresentação**: lições, XP, moedas, recompensas, permissões e histórico são os mesmos.
+- O banco recebe uma migration incremental: `StudentProfile.birthDate` opcional e `StudentProfile.interfaceMode` padrão `AUTO`.

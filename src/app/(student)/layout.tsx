@@ -4,11 +4,13 @@ import { Bell, Coins, Sparkles } from "lucide-react";
 import { requireStudent } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { StudentNav } from "@/components/student-nav";
+import { resolveExperience } from "@/lib/student-experience";
 
 export default async function StudentLayout({ children }: { children: ReactNode }) {
   const { user, student } = await requireStudent();
   const unread = await db.notification.count({ where: { userId: user.id, readAt: null } });
-  return <div className="app-shell">
+  const experience = resolveExperience(student);
+  return <div className={`app-shell experience-${experience}`} data-experience={experience}>
     <header className="topbar">
       <Link className="brand" href="/aprender" aria-label="Willingue, início"><span className="brand-mark"><Sparkles size={21}/></span><span>Willingue<span className="brand-period">.</span></span></Link>
       <div className="topbar-actions">
@@ -17,6 +19,6 @@ export default async function StudentLayout({ children }: { children: ReactNode 
       </div>
     </header>
     <main className="page-container" id="content">{children}</main>
-    <StudentNav/>
+    <StudentNav experience={experience}/>
   </div>;
 }
