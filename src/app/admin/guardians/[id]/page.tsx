@@ -45,7 +45,7 @@ export default async function AdminGuardianDetail({params}:{params:Promise<{id:s
    <AdminGuardianEditor id={guardian.id} name={guardian.name} email={guardian.email}/>
   </div>
   <section className="admin-dash-insights">
-   <div><span><UsersRound size={22}/></span><strong>{children.length}</strong><small>Filhos/alunos vinculados</small></div>
+   <div><span><UsersRound size={22}/></span><strong>{children.length}</strong><small>Filhos e alunos vinculados</small></div>
    <div><span><BookOpen size={22}/></span><strong>{children.reduce((n,c)=>n+c.overview.completed,0)}</strong><small>Lições concluídas</small></div>
    <div><span><Wallet size={22}/></span><strong>{formatMoney(open.reduce((n,c)=>n+c.amountCents,0))}</strong><small>Em aberto</small></div>
    <div><span><CheckCircle2 size={22}/></span><strong>{paid.length}</strong><small>Pagamentos registrados</small></div>
