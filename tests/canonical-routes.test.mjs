@@ -15,7 +15,7 @@ function listSources(folder) {
   return readdirSync(folder).flatMap((name)=>{
     const path=join(folder,name);
     if(statSync(path).isDirectory())return listSources(path);
-    return /\\.(?:ts|tsx|mjs)$/.test(path)?[path]:[];
+    return /\.(?:ts|tsx|mjs)$/.test(path)?[path]:[];
   });
 }
 test("frontend URL segments and paths remain in English",()=>{
