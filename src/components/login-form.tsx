@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Eye, EyeOff, LockKeyhole, Mail } from "lucide-react";
+import { readApiJson } from "@/lib/api-client";
 export function LoginForm() {
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -13,10 +14,10 @@ export function LoginForm() {
     event.preventDefault(); setBusy(true); setError("");
     try {
       const response = await fetch("/api/auth/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, password }) });
-      const result = await response.json();
+      const result = await readApiJson<{ error?: string; redirect?: string }>(response);
       if (!response.ok) { setError(result.error || "Não foi possível entrar."); return; }
       router.replace(result.redirect ?? "/aprender"); router.refresh();
-    } catch { setError("Não foi possível conectar. Tente novamente."); }
+    } catch (cause) { setError(cause instanceof Error ? cause.message : "Não foi possível conectar. Tente novamente."); }
     finally { setBusy(false); }
   }
   return <form onSubmit={submit} className="login-form">

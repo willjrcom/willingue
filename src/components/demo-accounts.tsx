@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Check, Copy, GraduationCap, ShieldCheck, Users } from "lucide-react";
+import { readApiJson } from "@/lib/api-client";
 
 type Role = "STUDENT" | "ADMIN" | "GUARDIAN";
 type Account = { role: Role; label: string; email: string; password: string };
@@ -32,9 +33,9 @@ export function DemoAccounts() {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ role }), cache: "no-store",
       });
-      const data = await response.json();
+      const data = await readApiJson<Account & { error?: string }>(response);
       if (!response.ok) throw new Error(data.error ?? "Falha ao gerar usuário.");
-      setAccount(data as Account);
+      setAccount(data);
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Não foi possível gerar o usuário.");
     } finally { setCreating(null); }
@@ -49,8 +50,9 @@ export function DemoAccounts() {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: account.email, password: account.password }),
       });
-      const data = await response.json();
+      const data = await readApiJson<{ error?: string; redirect?: string }>(response);
       if (!response.ok) throw new Error(data.error ?? "Não foi possível entrar.");
+      if (!data.redirect) throw new Error("O servidor não informou o destino do perfil.");
       router.replace(data.redirect);
       router.refresh();
     } catch (cause) {

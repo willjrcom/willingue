@@ -83,3 +83,9 @@ Com `DEMO_SEED=true`, abaixo do card de login aparecem os botões **Gerar usuár
 A criação é bloqueada quando `DEMO_SEED` não for `true`; o login e as sessões desses e-mails de demonstração também são recusados após desabilitar a variável. **Não utilize essa modalidade em um ambiente com dados reais:** qualquer visitante da demonstração pode gerar/usar o administrador fictício.
 
 As telas de administrador e responsável são provisórias, apenas para demonstrar entrada por perfil. Cadastros, vínculos, financeiro e dashboards ainda não foram implementados.
+
+## Diagnóstico de autenticação no Dokploy
+
+O `DATABASE_URL` identifica o arquivo SQLite (em produção, `file:/app/data/willingue.db`). **Também é obrigatório configurar `AUTH_SECRET` com 32 ou mais caracteres**: a criação de uma conta demo pode funcionar sem ele, mas o login falhará ao tentar assinar o cookie de sessão. Corrigimos a API para retornar um erro JSON legível quando essa configuração falta, em vez de uma resposta vazia. Os formulários também tratam respostas vazias/HTML sem mostrar o erro técnico `Unexpected end of JSON input`.
+
+Faça **redeploy** depois de configurar as variáveis e confirme o volume persistente em `/app/data`. O erro completo fica no log do serviço no Dokploy.
