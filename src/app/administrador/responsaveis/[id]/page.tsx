@@ -8,11 +8,21 @@ import { AdminGuardianEditor } from "@/components/admin-guardian-editor";
 export const metadata={title:"Detalhes do responsável"};
 export default async function AdminGuardianDetail({params}:{params:Promise<{id:string}>}){
  const {id}=await params;
- const guardian=await db.user.findFirst({where:{id,role:"GUARDIAN"},
-  include:{guardianLinks:{include:{student:{include:{
-   user:{select:{name:true,email:true}},
-   classrooms:{include:{classroom:{select:{name:true}}}},
-  }}}}}}});
+ const guardian=await db.user.findFirst({
+  where: { id, role: "GUARDIAN" },
+  include: {
+   guardianLinks: {
+    include: {
+     student: {
+      include: {
+       user: { select: { name:true,email:true } },
+       classrooms: { include: { classroom: { select: { name:true } } } },
+      },
+     },
+    },
+   },
+  },
+ });
  if(!guardian)notFound();
  const ids=guardian.guardianLinks.map(l=>l.studentId);
  const [children,charges]=await Promise.all([
