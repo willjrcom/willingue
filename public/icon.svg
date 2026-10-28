@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
-  <rect width="192" height="192" rx="44" fill="#6754e8"/>
-  <path d="M44 62L70 131L96 82L122 131L148 62" fill="none" stroke="#fff" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M139 36L143 47L154 51L143 55L139 66L135 55L124 51L135 47Z" fill="#ffcf59"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" aria-label="Willingue">
+  <rect width="192" height="192" rx="42" fill="#6754e8"/>
+  <path d="M39 56L66 138L96 86L126 138L153 56" fill="none" stroke="#fff"
+    stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

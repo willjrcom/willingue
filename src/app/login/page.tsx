@@ -3,14 +3,15 @@ import { currentUser } from "@/lib/auth";
 import { LoginForm } from "@/components/login-form";
 import { DemoAccounts } from "@/components/demo-accounts";
 import { homeForRole } from "@/lib/role-path";
-import { Sparkles, Trophy, WandSparkles } from "lucide-react";
+import { Trophy, WandSparkles } from "lucide-react";
+import { BrandMark } from "@/components/brand-mark";
 
 export default async function LoginPage() {
   const user = await currentUser();
   if (user && homeForRole(user) !== "/login") redirect(homeForRole(user));
   return <main className="login-page"><div className="login-deco deco-one"/><div className="login-deco deco-two"/>
     <div className="login-wrap">
-      <div className="login-intro"><div className="login-logo"><Sparkles size={28}/> Willingue<span>.</span></div>
+      <div className="login-intro"><div className="login-logo"><BrandMark size={44}/> Willingue<span>.</span></div>
         <div className="hero-mascot" aria-hidden="true">🦊<span className="float-star first">✦</span><span className="float-star second">✧</span></div>
         <p className="eyebrow">LEARN • PLAY • GROW</p><h1>Seu inglês vai<br/><span>longe!</span></h1>
         <p>Aprenda no seu ritmo, ganhe moedas e descubra novos desafios todos os dias.</p>

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { Bell, Sparkles } from "lucide-react";
+import { Bell } from "lucide-react";
+import { BrandMark } from "@/components/brand-mark";
 import { requireGuardian } from "@/lib/guardian";
 import { db } from "@/lib/db";
 import { GuardianNav } from "@/components/guardian-nav";
@@ -10,7 +11,7 @@ export default async function GuardianLayout({ children }: { children: ReactNode
   const unread = await db.notification.count({ where: { userId: guardian.id, readAt: null } });
   return <div className="guardian-shell">
     <header className="guardian-topbar">
-      <Link href="/responsavel" className="guardian-brand"><span><Sparkles size={21}/></span>Willingue<b>.</b></Link>
+      <Link href="/responsavel" className="guardian-brand"><span><BrandMark size={37}/></span>Willingue<b>.</b></Link>
       <div className="guardian-top-actions">
         <span className="guardian-role-chip">Responsável</span>
         <Link href="/responsavel/notificacoes" className="guardian-notif" aria-label={`${unread} notificações não lidas`}>

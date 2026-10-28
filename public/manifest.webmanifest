@@ -1,13 +1,13 @@
 {
-  "name": "Willingue — Aprender inglês",
-  "short_name": "Willingue",
-  "description": "Trilhas, lições, desafios e recompensas para aprender inglês.",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#f7f6ff",
-  "theme_color": "#6754e8",
-  "icons": [
-    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
-    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
-  ]
+ "name": "Willingue — Inglês e aprendizado",
+ "short_name": "Willingue",
+ "description": "Trilhas de inglês, evolução do aluno e recompensas digitais.",
+ "start_url": "/",
+ "display": "standalone",
+ "background_color": "#f7f6ff",
+ "theme_color": "#6754e8",
+ "icons": [
+  { "src": "/api/brand/icon/192", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+  { "src": "/api/brand/icon/512", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+ ]
 }

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { Bell, Coins, Sparkles } from "lucide-react";
+import { Bell, Coins } from "lucide-react";
+import { BrandMark } from "@/components/brand-mark";
 import { requireStudent } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { StudentNav } from "@/components/student-nav";
@@ -12,7 +13,7 @@ export default async function StudentLayout({ children }: { children: ReactNode 
   const experience = resolveExperience(student);
   return <div className={`app-shell experience-${experience}`} data-experience={experience}>
     <header className="topbar">
-      <Link className="brand" href="/aprender" aria-label="Willingue, início"><span className="brand-mark"><Sparkles size={21}/></span><span>Willingue<span className="brand-period">.</span></span></Link>
+      <Link className="brand" href="/aprender" aria-label="Willingue, início"><span className="brand-mark"><BrandMark size={43}/></span><span>Willingue<span className="brand-period">.</span></span></Link>
       <div className="topbar-actions">
         <Link className="mini-balance" href="/recompensas" aria-label={`${student.coins} moedas`}><Coins size={19}/><strong>{student.coins}</strong></Link>
         <Link className="header-icon" href="/notificacoes" aria-label={unread ? `${unread} notificações não lidas` : "Notificações"}><Bell size={21}/>{unread > 0 && <span className="notif-dot">{unread > 9 ? "9+" : unread}</span>}</Link>

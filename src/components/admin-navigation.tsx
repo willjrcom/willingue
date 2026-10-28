@@ -2,8 +2,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bell, BookOpen, ChartNoAxesCombined, ChevronRight, CreditCard, Gift, GraduationCap, House, Menu, MessageSquareText, Settings, Sparkles, UsersRound, UserRoundCheck, X } from "lucide-react";
+import { Bell, BookOpen, ChartNoAxesCombined, ChevronRight, CreditCard, Gift, GraduationCap, House, Menu, MessageSquareText, Settings, UsersRound, UserRoundCheck, X } from "lucide-react";
 import { LogoutButton } from "@/components/logout-button";
+import { BrandMark } from "@/components/brand-mark";
 
 const groups = [
   { title: "PRINCIPAL", items: [
@@ -41,7 +42,7 @@ export function AdminNavigation({ adminName, email }: { adminName: string; email
   }
   return <>
     <aside className="admin-sidebar">
-      <Link href="/administrador" className="admin-sidebar-logo"><span><Sparkles size={22}/></span>
+      <Link href="/administrador" className="admin-sidebar-logo"><span><BrandMark size={39}/></span>
         <strong>Willingue<span>.</span></strong><small>ADMIN</small></Link>
       <nav className="admin-side-groups" aria-label="Menu administrativo">
         {groups.map(group => <section key={group.title}>
@@ -55,7 +56,7 @@ export function AdminNavigation({ adminName, email }: { adminName: string; email
       <div className="admin-sidebar-logout"><LogoutButton/></div>
     </aside>
     <header className="admin-mobile-top">
-      <Link href="/administrador" className="admin-mobile-brand"><Sparkles size={21}/> Willingue<span>.</span></Link>
+      <Link href="/administrador" className="admin-mobile-brand"><BrandMark size={32}/> Willingue<span>.</span></Link>
       <div><span className="admin-mobile-role">Administrador</span>
         <Link href="/administrador/comunicados" aria-label="Comunicados"><Bell size={21}/></Link>
         <button type="button" aria-label="Abrir menu" onClick={()=>setOpen(true)}><Menu size={22}/></button>
