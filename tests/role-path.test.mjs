@@ -4,9 +4,9 @@ import { homeForRole } from '../src/lib/role-path.ts';
 import { isDemoAccount } from '../src/lib/demo.ts';
 
 test('cada perfil acessa sua própria área', () => {
-  assert.equal(homeForRole({role:'STUDENT',student:{id:'1'}}), '/aprender');
-  assert.equal(homeForRole({role:'ADMIN'}), '/administrador');
-  assert.equal(homeForRole({role:'GUARDIAN'}), '/responsavel');
+  assert.equal(homeForRole({role:'STUDENT',student:{id:'1'}}), '/learn');
+  assert.equal(homeForRole({role:'ADMIN'}), '/admin');
+  assert.equal(homeForRole({role:'GUARDIAN'}), '/guardian');
 });
 test('perfil ausente, desconhecido ou aluno sem cadastro não obtém acesso', () => {
   assert.equal(homeForRole(null), '/login');
