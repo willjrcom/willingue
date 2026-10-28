@@ -25,11 +25,17 @@ export default async function AdminGuardianDetail({params}:{params:Promise<{id:s
  });
  if(!guardian)notFound();
  const ids=guardian.guardianLinks.map(l=>l.studentId);
- const [children,charges]=await Promise.all([
-  Promise.all(guardian.guardianLinks.map(async link=>({link,overview:await childOverview(link.studentId)}))),
-  ids.length?db.charge.findMany({where:{studentId:{in:ids}},orderBy:{dueAt:"desc"},
-    include:{student:{include:{user:{select:{name:true}}}}},payerGuardian:{select:{name:true}}}}):Promise.resolve([]),
- ]);
+ const children = await Promise.all(guardian.guardianLinks.map(async link => ({
+  link, overview: await childOverview(link.studentId),
+ })));
+ const charges = await db.charge.findMany({
+  where: { studentId: { in: ids } },
+  orderBy: { dueAt: "desc" },
+  include: {
+   student: { include: { user: { select: { name: true } } } },
+   payerGuardian: { select: { name: true } },
+  },
+ });
  const open=charges.filter(c=>["PENDING","OVERDUE"].includes(chargeStatus(c)));
  const paid=charges.filter(c=>chargeStatus(c)==="PAID");
  return <div className="admin-content">
