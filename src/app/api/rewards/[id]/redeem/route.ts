@@ -15,7 +15,7 @@ export async function POST(_request: Request, { params }: { params: Promise<{ id
       const debit = await tx.studentProfile.updateMany({ where: { id: context.student.id, coins: { gte: reward.price } }, data: { coins: { decrement: reward.price } } });
       if (!debit.count) throw new Error("INSUFFICIENT_COINS");
       await tx.rewardRedemption.create({ data: { studentId: context.student.id, rewardId: id } });
-      await tx.notification.create({ data: { userId: context.user.id, title: "Recompensa desbloqueada! 🎁", message: `Você desbloqueou ${reward.name}. Confira sua coleção!`, href: "/recompensas" } });
+      await tx.notification.create({ data: { userId: context.user.id, title: "Recompensa desbloqueada! 🎁", message: `Você desbloqueou ${reward.name}. Confira sua coleção!`, href: "/rewards" } });
     });
   } catch (error) {
     if (error instanceof Error && error.message === "INSUFFICIENT_COINS") return jsonError("Você ainda não tem moedas suficientes.", 409);

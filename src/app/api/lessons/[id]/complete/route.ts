@@ -32,7 +32,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
           xp: { increment: lesson.xpReward }, coins: { increment: lesson.coinReward }, lastCompletedAt: new Date(),
         } });
         await tx.activity.updateMany({ where: { studentId: context.student.id, lessonId: id, completedAt: null }, data: { completedAt: new Date() } });
-        await tx.notification.create({ data: { userId: context.user.id, title: "Você conseguiu! 🎉", message: `Você ganhou ${lesson.xpReward} XP e ${lesson.coinReward} moedas por ${lesson.title}.`, href: "/recompensas" } });
+        await tx.notification.create({ data: { userId: context.user.id, title: "Você conseguiu! 🎉", message: `Você ganhou ${lesson.xpReward} XP e ${lesson.coinReward} moedas por ${lesson.title}.`, href: "/rewards" } });
       }
     });
   } catch (error) {
