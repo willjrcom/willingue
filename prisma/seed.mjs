@@ -149,6 +149,44 @@ async function main() {
       });
     }
   }
+
+  // Dados financeiros e vínculo familiar exclusivamente demonstrativos.
+  const guardian = await db.user.upsert({
+    where: { email: 'responsavel@willingue.app' },
+    create: { email: 'responsavel@willingue.app', name: 'Patrícia Demo',
+      role: 'GUARDIAN', passwordHash },
+    update: { passwordHash, role: 'GUARDIAN' },
+  });
+  await db.guardianStudent.upsert({
+    where: { guardianId_studentId: { guardianId: guardian.id, studentId: student.id } },
+    create: { guardianId: guardian.id, studentId: student.id, financialResponsible: true },
+    update: {},
+  });
+  const demoCharges = [
+    { id: 'demo-charge-current', title: 'Mensalidade de inglês', amountCents: 18990,
+      dueAt: new Date(Date.now() + 8 * 86400000), status: 'PENDING', payerType: 'GUARDIAN' },
+    { id: 'demo-charge-previous', title: 'Mensalidade anterior', amountCents: 18990,
+      dueAt: new Date(Date.now() - 28 * 86400000), status: 'PAID', payerType: 'GUARDIAN',
+      paidAt: new Date(Date.now() - 25 * 86400000) },
+    { id: 'demo-charge-material', title: 'Material didático', amountCents: 4990,
+      dueAt: new Date(Date.now() - 5 * 86400000), status: 'PENDING', payerType: 'GUARDIAN' },
+  ];
+  for (const charge of demoCharges) {
+    const { id, ...data } = charge;
+    await db.charge.upsert({
+      where: { id },
+      create: { id, studentId: student.id, payerGuardianId: guardian.id, ...data },
+      update: {},
+    });
+  }
+  await db.notification.upsert({
+    where: { id: 'demo-guardian-welcome' },
+    create: { id: 'demo-guardian-welcome', userId: guardian.id,
+      title: 'Bem-vindo ao acompanhamento escolar!',
+      message: 'Veja as trilhas e as cobranças do Alex pelo seu painel.',
+      href: '/responsavel' },
+    update: {},
+  });
   console.log('Demo Willingue pronta: aluno@willingue.app / Demo@12345');
 }
 

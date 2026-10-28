@@ -290,3 +290,112 @@
 .experience-adult .profile-preferences-icon{background:#eaf2f4}
 .experience-adult .profile-edit-avatar.selected{background:#eaf2f4}
 @media(max-width:560px){.profile-edit-dialog{padding:19px;border-radius:18px}.profile-edit-avatar-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.profile-preferences-link{padding:14px}.profile-preferences-text small{font-size:11px}}
+
+/* Guardian and school finance interface */
+.guardian-shell{--purple:#5d53cf;--purple-dark:#463caa;--ink:#2e2949;--muted:#8a879f;--border:#e8e7f5;--shadow:0 12px 30px #39306a0b;min-height:100vh;background:#f7f8fd}
+.guardian-topbar{height:74px;background:white;border-bottom:1px solid #eeeaf7;position:sticky;top:0;z-index:20;padding:0 max(24px,calc((100vw - 1100px)/2));display:flex;align-items:center;justify-content:space-between}
+.guardian-brand{display:flex;align-items:center;gap:10px;font-size:23px;font-weight:900;letter-spacing:-1px;color:#292548}
+.guardian-brand>span{display:grid;place-items:center;width:37px;height:37px;border-radius:12px;background:#6355df;color:white}
+.guardian-brand>b{color:#6052d6;margin-left:-10px}
+.guardian-top-actions{display:flex;align-items:center;gap:11px}
+.guardian-role-chip{background:#f0edfc;border-radius:20px;padding:8px 13px;font-size:11px;font-weight:850;color:#6a59c5}
+.guardian-notif{background:#f6f4ff;border-radius:50%;width:39px;height:39px;display:grid;place-items:center;color:#6557c3;position:relative}
+.guardian-notif i{position:absolute;top:-5px;right:-5px;display:grid;place-items:center;min-width:18px;padding:2px 5px;border-radius:100px;background:#ff648e;color:#fff;font:800 10px system-ui;border:2px solid white}
+.guardian-container{max-width:1100px;margin:auto;padding:34px 24px 115px}
+.guardian-stack{display:grid;gap:25px}
+.guardian-eyebrow{font-size:10px;font-weight:900;letter-spacing:1.5px;color:#9c91b6;margin:0 0 8px}
+.guardian-greeting h1,.guardian-page-title h1{font-size:clamp(27px,4vw,37px);margin:0 0 8px;color:#302c52}
+.guardian-greeting>p:last-child,.guardian-page-title>p:last-child{font-size:14px;color:#857f9a;max-width:670px;margin:0}
+.guardian-hero{background:linear-gradient(115deg,#6757d9,#8378eb);color:white;padding:31px;border-radius:25px;display:flex;align-items:center;justify-content:space-between;min-height:190px;gap:15px;box-shadow:0 15px 35px #6557de25}
+.guardian-hero-tag{display:inline-flex;align-items:center;gap:7px;font-size:10px;letter-spacing:.4px;font-weight:850;background:#ffffff24;padding:7px 11px;border-radius:30px}
+.guardian-hero h2{font-size:clamp(23px,4vw,31px);margin:13px 0 8px;max-width:500px;color:white}
+.guardian-hero p{color:#efeaff;font-size:13px;margin:0;max-width:520px}
+.guardian-hero-icon{font-size:78px;flex-shrink:0;filter:drop-shadow(0 8px 6px #392b8c40)}
+.guardian-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.guardian-metrics>div{background:white;border:1px solid #eae7f5;border-radius:18px;padding:20px;display:grid;gap:8px;align-content:start;min-width:0}
+.guardian-metrics svg{color:var(--purple)}
+.guardian-metrics strong{font-size:27px;color:#33305c;overflow-wrap:anywhere;line-height:1.2}
+.guardian-metrics strong.guardian-money{font-size:22px}
+.guardian-metrics span{font-size:12px;color:#8c88a5}
+.guardian-section{display:grid;gap:16px}
+.guardian-section-title{display:flex;justify-content:space-between;align-items:center;gap:15px}
+.guardian-section-title h2{font-size:22px;color:#302c51;margin:0}
+.guardian-section-title>a{display:inline-flex;gap:7px;align-items:center;font-weight:800;font-size:12px;color:var(--purple);white-space:nowrap}
+.guardian-child-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.guardian-child-card{background:white;border:1px solid #eae7f5;border-radius:21px;padding:22px;display:grid;gap:16px}
+.guardian-child-head{display:flex;align-items:center;gap:13px}
+.guardian-child-head h3{margin:0 0 5px;font-size:19px;color:#302a4b}
+.guardian-child-head p{margin:0;font-size:12px;color:#9991ac}
+.guardian-child-avatar{font-size:38px;border-radius:17px;background:#f0eaff;display:grid;place-items:center;width:64px;height:64px;flex-shrink:0}
+.guardian-progress-track{background:#efedf8;height:9px;border-radius:20px;overflow:hidden}
+.guardian-progress-track>span{height:100%;display:block;background:linear-gradient(90deg,#6555df,#a492f3);border-radius:20px}
+.guardian-progress-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:11px}
+.guardian-progress-meta strong{color:#5546b7}.guardian-progress-meta span{color:#8d879f}
+.guardian-activity-hint{font-size:12px;color:#827a99;margin:0}
+.guardian-card-link{color:#5a4bc6;font-size:12px;font-weight:850;display:flex;align-items:center;justify-content:space-between;background:#f3f0ff;padding:12px 15px;border-radius:11px}
+.guardian-highlight-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.guardian-highlight{border:1px solid #eae7f5;border-radius:18px;background:white;padding:19px;display:flex;align-items:center;gap:13px;color:var(--purple)}
+.guardian-highlight>span{display:grid;gap:5px;flex:1;color:#332d55;min-width:0}
+.guardian-highlight strong{font-size:14px}
+.guardian-highlight small{font-size:11px;color:#9a92ad}
+.guardian-empty{background:white;border:2px dashed #e5e0f3;padding:28px;text-align:center;color:#9188ac;border-radius:17px;display:grid;justify-items:center;gap:9px}
+.guardian-empty h2{font-size:18px;color:#403b5c;margin:0}
+.guardian-empty p{font-size:13px;margin:0}
+.guardian-empty.compact{padding:20px;font-size:12px}
+.guardian-small-stats{display:flex;gap:10px;flex-wrap:wrap}
+.guardian-small-stats span{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:#9085a8}
+.guardian-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,700px);height:76px;background:white;border:1px solid #eeebf8;border-bottom:0;border-radius:20px 20px 0 0;box-shadow:0 -8px 32px #30214e16;display:flex;z-index:30;padding-bottom:env(safe-area-inset-bottom)}
+.guardian-nav>a{flex:1;display:grid;justify-items:center;align-content:center;gap:5px;color:#9690a9;font-size:11px;font-weight:800}
+.guardian-nav>a.active{color:var(--purple)}
+.guardian-student-hero{background:white;border:1px solid #eae7f5;border-radius:20px;padding:23px;display:flex;align-items:center;gap:19px}
+.guardian-student-emoji{font-size:60px;display:grid;place-items:center;flex-shrink:0;width:92px;height:92px;border-radius:22px;background:#f2eeff}
+.guardian-student-hero h1{font-size:26px;margin:0 0 6px}
+.guardian-student-hero p:not(.guardian-eyebrow){font-size:12px;color:#958dab;margin:0}
+.guardian-back{font-size:13px;color:var(--purple);display:inline-flex;align-items:center;gap:7px;font-weight:800;width:max-content}
+.guardian-info-strip{display:flex;align-items:center;gap:11px;padding:16px 19px;background:#efebff;border-radius:13px;color:#5247a5;font-size:13px;font-weight:700}
+.guardian-info-strip svg{flex-shrink:0}
+.guardian-path-list{display:grid;gap:12px}
+.guardian-path-card{background:white;border:1px solid #e9e5f5;border-radius:18px;padding:18px;display:flex;gap:14px}
+.guardian-path-icon{width:51px;height:51px;border-radius:14px;display:grid;place-items:center;background:#f2eeff;font-size:30px;flex-shrink:0}
+.guardian-path-content{display:grid;gap:9px;flex:1;min-width:0}
+.guardian-path-content>div:first-child{display:flex;justify-content:space-between;align-items:center;gap:15px}
+.guardian-path-content strong{font-size:15px}
+.guardian-path-content span,.guardian-path-content small{font-size:11px;color:#9086ab}
+.guardian-path-content p{font-size:12px;color:#a099af;margin:0}
+.guardian-subpaths{display:flex;flex-wrap:wrap;gap:7px;margin-top:5px}
+.guardian-subpaths span{font-size:11px;color:#7060ad;background:#f3f0ff;padding:7px 9px;border-radius:9px}
+.guardian-simple-list{display:grid;gap:10px}
+.guardian-simple-list>a,.guardian-simple-list>div{display:flex;align-items:center;gap:12px;background:white;border:1px solid #eae7f5;border-radius:14px;padding:14px}
+.guardian-list-icon{background:#f2efff;min-width:43px;height:43px;border-radius:12px;display:grid;place-items:center;font-size:23px;color:#6455cb}
+.guardian-simple-list div>div,.guardian-simple-list a>div{display:grid;gap:5px;flex:1;min-width:0}
+.guardian-simple-list strong{font-size:13px}
+.guardian-simple-list small{font-size:11px;color:#958da9}
+.guardian-simple-list a>svg:last-child{color:#857ab9}
+.guardian-success-icon{color:#29a47f}
+.guardian-filter-pills{display:flex;gap:8px;flex-wrap:wrap}
+.guardian-filter-pills>a{background:white;border:1px solid #e6e2f3;color:#7e719c;border-radius:10px;padding:10px 13px;font-size:12px;font-weight:750}
+.guardian-filter-pills>a.active{background:var(--purple);border-color:var(--purple);color:white}
+.finance-charge-list{display:grid;gap:10px}
+.finance-charge{background:white;border:1px solid #e8e6f4;border-radius:16px;padding:18px}
+.finance-charge-main{display:flex;justify-content:space-between;gap:16px}
+.finance-charge-main>div:first-child{display:grid;gap:6px}
+.finance-charge-main strong{font-size:14px}
+.finance-charge-main span{font-size:12px;color:#89839f}
+.finance-charge-main small{color:#a29cb3;font-size:11px}
+.finance-charge-right{display:grid;align-content:start;justify-items:end;gap:8px}
+.finance-charge-right strong{font-size:18px;color:#322d52;white-space:nowrap}
+.finance-status{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:850;border-radius:9px;padding:6px 9px}
+.finance-status-pending{background:#edf0ff;color:#5267bd}
+.finance-status-overdue{background:#ffebec;color:#bc4262}
+.finance-status-paid{background:#e8f8f1;color:#247a56}
+.finance-status-canceled{background:#f0f0f2;color:#777783}
+.finance-empty{padding:24px;border:1.5px dashed #e7e0f4;border-radius:16px;text-align:center;color:#928aa9;background:white;font-size:13px}
+.guardian-footnote{font-size:12px;color:#928ca4;margin:0}
+.guardian-person-card{display:grid;justify-items:center;gap:10px;padding:28px;background:white;border:1px solid #e9e5f5;border-radius:19px}
+.guardian-person-avatar{width:78px;height:78px;border-radius:22px;background:#eeebff;color:#6152c9;display:grid;place-items:center}
+.guardian-person-card h2{margin:0}
+.guardian-person-card p{display:flex;gap:6px;align-items:center;font-size:13px;color:#8981a2;margin:0}
+.guardian-person-card small{background:#f0edff;color:#6b5dc3;padding:8px;border-radius:20px;font-size:11px;font-weight:850}
+.student-finance-metrics{margin:0}
+@media(max-width:700px){.guardian-container{padding:24px 16px 108px}.guardian-child-grid,.guardian-highlight-row{grid-template-columns:1fr}.guardian-hero{padding:24px}.guardian-metrics{gap:8px}.guardian-metrics>div{padding:13px}.guardian-metrics strong{font-size:21px}.guardian-metrics strong.guardian-money{font-size:16px}}
+@media(max-width:430px){.guardian-hero-icon{font-size:49px}.guardian-hero h2{font-size:22px}.guardian-role-chip{font-size:10px}.guardian-nav>a{font-size:10px}.guardian-topbar{padding:0 15px}.guardian-metrics span{font-size:10px}.guardian-metrics strong{font-size:19px}.guardian-metrics strong.guardian-money{font-size:14px}.finance-charge{padding:13px}.finance-charge-main{gap:8px}.finance-charge-right strong{font-size:16px}.guardian-student-emoji{width:66px;height:66px;font-size:44px}.guardian-student-hero{padding:16px}}

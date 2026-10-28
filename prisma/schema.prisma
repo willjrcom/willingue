@@ -15,6 +15,8 @@ model User {
   role         String         @default("STUDENT")
   student      StudentProfile?
   notifications Notification[]
+  guardianLinks GuardianStudent[] @relation("GuardianUser")
+  billedCharges Charge[] @relation("ChargePayer")
   createdAt    DateTime       @default(now())
 }
 
@@ -35,6 +37,8 @@ model StudentProfile {
   redemptions     RewardRedemption[]
   activities      Activity[]
   classrooms      ClassroomMember[]
+  guardianLinks   GuardianStudent[]
+  charges         Charge[]
 }
 
 model LearningPath {
@@ -193,4 +197,35 @@ model ClassroomMember {
 
   @@unique([classroomId, studentId])
   @@index([studentId, classroomId])
+}
+
+model GuardianStudent {
+  id                   String         @id @default(cuid())
+  guardianId           String
+  studentId            String
+  financialResponsible Boolean        @default(false)
+  createdAt            DateTime       @default(now())
+  guardian             User           @relation("GuardianUser", fields: [guardianId], references: [id], onDelete: Cascade)
+  student              StudentProfile @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([guardianId, studentId])
+  @@index([studentId, guardianId])
+}
+
+model Charge {
+  id               String         @id @default(cuid())
+  studentId        String
+  student          StudentProfile @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  title            String
+  amountCents      Int
+  dueAt            DateTime
+  status           String         @default("PENDING")
+  paidAt           DateTime?
+  payerType        String         @default("GUARDIAN")
+  payerGuardianId  String?
+  payerGuardian    User?          @relation("ChargePayer", fields: [payerGuardianId], references: [id], onDelete: SetNull)
+  createdAt        DateTime       @default(now())
+
+  @@index([studentId, dueAt])
+  @@index([status, dueAt])
 }

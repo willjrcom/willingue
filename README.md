@@ -118,3 +118,13 @@ Faça **redeploy** depois de configurar as variáveis e confirme o volume persis
 - A API `POST /api/profile/details` valida o acesso do aluno, os campos, a origem da solicitação e a propriedade de avatares; salva nome e dados de apresentação em uma transação SQLite.
 - O card **Preferências** abre `/preferencias`, página separada com os três estilos por idade e data de nascimento. As configurações existentes são mantidas, sem nova migration.
 - O progresso, as moedas, as lições e os vínculos com turmas não são afetados.
+
+## Responsáveis, progresso e financeiro
+
+- Contas vinculadas: um aluno pode ter vários responsáveis; um responsável pode acompanhar vários alunos. O responsável financeiro é marcado no vínculo, e cada cobrança possui pagante independente (`GUARDIAN` ou `STUDENT`).
+- O responsável autenticado acessa `/responsavel`, `/responsavel/alunos`, `/responsavel/alunos/[id]`, `/responsavel/financeiro`. Consultas de filhos são sempre filtradas pelo vínculo cadastrado, sem revelar dados de outros alunos.
+- O progresso é calculado com as trilhas e conclusões reais do banco. Mostra total, percentual, histórico recente, atividades pendentes e movimento na última semana, sem estimar presença ou frequência não cadastrada.
+- As cobranças ficam no SQLite, em centavos inteiros, com vencimento e status manual `PENDING`, `PAID`, `CANCELED`; o rótulo `OVERDUE` é calculado ao consultar cobranças vencidas e não pagas.
+- O aluno vê suas cobranças em **Meu perfil → Minhas contas**; o responsável tem **Financeiro** como aba principal, podendo filtrar por estudante e situação.
+- Administradores poderão cadastrar vínculos e cobranças, escolher pagante e registrar pagamentos manualmente; nenhuma integração bancária está ativa.
+- `DEMO_SEED=true` vincula `responsavel@willingue.app` ao Alex e inclui três cobranças fictícias. O seed preserva edições em cobranças preexistentes.
