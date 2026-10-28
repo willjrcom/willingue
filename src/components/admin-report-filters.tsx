@@ -6,7 +6,7 @@ export function ReportFilters({period,classroomId,classrooms}:{period:number;cla
  function change(days:number,id:string){
   const query=new URLSearchParams({periodo:String(days)});
   if(id)query.set("turma",id);
-  router.push("/administrador/relatorios?"+query.toString());
+  router.push("/admin/reports?"+query.toString());
  }
  return <div className="admin-report-filters">
   <div className="admin-report-period" aria-label="Intervalo de tempo">{[7,30,90].map(day=>

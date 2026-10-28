@@ -8,27 +8,27 @@ import { BrandMark } from "@/components/brand-mark";
 
 const groups = [
   { title: "PRINCIPAL", items: [
-    { label: "Visão geral", path: "/administrador", icon: House },
-    { label: "Alunos", path: "/administrador/alunos", icon: GraduationCap },
-    { label: "Turmas", path: "/administrador/turmas", icon: UsersRound },
-    { label: "Aprendizado", path: "/administrador/aprendizado", icon: BookOpen },
-    { label: "Financeiro", path: "/administrador/financeiro", icon: CreditCard },
+    { label: "Visão geral", path: "/admin", icon: House },
+    { label: "Alunos", path: "/admin/students", icon: GraduationCap },
+    { label: "Turmas", path: "/admin/classrooms", icon: UsersRound },
+    { label: "Aprendizado", path: "/admin/learning", icon: BookOpen },
+    { label: "Financeiro", path: "/admin/finance", icon: CreditCard },
   ] },
   { title: "GESTÃO", items: [
-    { label: "Responsáveis", path: "/administrador/responsaveis", icon: UserRoundCheck },
-    { label: "Recompensas", path: "/administrador/recompensas", icon: Gift },
-    { label: "Comunicados", path: "/administrador/comunicados", icon: MessageSquareText },
-    { label: "Relatórios", path: "/administrador/relatorios", icon: ChartNoAxesCombined },
+    { label: "Responsáveis", path: "/admin/guardians", icon: UserRoundCheck },
+    { label: "Recompensas", path: "/admin/rewards", icon: Gift },
+    { label: "Comunicados", path: "/admin/announcements", icon: MessageSquareText },
+    { label: "Relatórios", path: "/admin/reports", icon: ChartNoAxesCombined },
   ] },
   { title: "SISTEMA", items: [
-    { label: "Configurações", path: "/administrador/configuracoes", icon: Settings },
+    { label: "Configurações", path: "/admin/settings", icon: Settings },
   ] },
 ];
 const bottom = [groups[0].items[0], groups[0].items[1], groups[0].items[2], groups[0].items[4]];
 export function AdminNavigation({ adminName, email }: { adminName: string; email: string }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const isActive = (path: string) => path === "/administrador" ? pathname === path : pathname.startsWith(path);
+  const isActive = (path: string) => path === "/admin" ? pathname === path : pathname.startsWith(path);
   const current = groups.flatMap(g => g.items).find(item => isActive(item.path));
   const mobileMore = !bottom.some(item => isActive(item.path));
   function itemLink(item: (typeof groups)[number]["items"][number]) {
@@ -42,7 +42,7 @@ export function AdminNavigation({ adminName, email }: { adminName: string; email
   }
   return <>
     <aside className="admin-sidebar">
-      <Link href="/administrador" className="admin-sidebar-logo"><span><BrandMark size={39}/></span>
+      <Link href="/admin" className="admin-sidebar-logo"><span><BrandMark size={39}/></span>
         <strong>Willingue<span>.</span></strong><small>ADMIN</small></Link>
       <nav className="admin-side-groups" aria-label="Menu administrativo">
         {groups.map(group => <section key={group.title}>
@@ -56,9 +56,9 @@ export function AdminNavigation({ adminName, email }: { adminName: string; email
       <div className="admin-sidebar-logout"><LogoutButton/></div>
     </aside>
     <header className="admin-mobile-top">
-      <Link href="/administrador" className="admin-mobile-brand"><BrandMark size={32}/> Willingue<span>.</span></Link>
+      <Link href="/admin" className="admin-mobile-brand"><BrandMark size={32}/> Willingue<span>.</span></Link>
       <div><span className="admin-mobile-role">Administrador</span>
-        <Link href="/administrador/comunicados" aria-label="Comunicados"><Bell size={21}/></Link>
+        <Link href="/admin/announcements" aria-label="Comunicados"><Bell size={21}/></Link>
         <button type="button" aria-label="Abrir menu" onClick={()=>setOpen(true)}><Menu size={22}/></button>
       </div>
     </header>

@@ -16,7 +16,7 @@ export function AdminAnnouncementForm({classrooms}:{classrooms:Array<{id:string;
     body:JSON.stringify({title,message,audience,classroomId:audience==="CLASSROOM"?classroomId:null})});
    const data=await readApiJson<{error?:string}>(r);
    if(!r.ok)throw Error(data.error||"Falha ao salvar.");
-   router.push("/administrador/comunicados");router.refresh();
+   router.push("/admin/announcements");router.refresh();
   }catch(err){setError(err instanceof Error?err.message:"Não foi possível salvar.");setBusy(false);}
  }
  return <form className="admin-create-form" onSubmit={submit}>
@@ -39,7 +39,7 @@ export function AdminAnnouncementForm({classrooms}:{classrooms:Array<{id:string;
   </div>
   <p className="admin-muted-note">Os destinatários recebem uma notificação no aplicativo. Não são enviados e-mails, mensagens de WhatsApp ou SMS.</p>
   {error&&<p role="alert" className="admin-feedback error">{error}</p>}
-  <div className="admin-form-actions"><Link className="admin-secondary-button" href="/administrador/comunicados">Cancelar</Link>
+  <div className="admin-form-actions"><Link className="admin-secondary-button" href="/admin/announcements">Cancelar</Link>
    <button disabled={busy} className="admin-action-primary"><Save size={17}/>{busy?"Salvando...":"Salvar rascunho"}</button></div>
  </form>;
 }

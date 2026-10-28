@@ -30,7 +30,7 @@ export function AdminStudentList({ students }: { students: Student[] }) {
     </div>
     <p className="admin-table-caption">{filtered.length} {filtered.length === 1 ? "aluno encontrado" : "alunos encontrados"}</p>
     <div className="admin-students">
-      {filtered.map(s => <Link href={`/administrador/alunos/${s.id}`} key={s.id} className="admin-student-row">
+      {filtered.map(s => <Link href={`/admin/students/${s.id}`} key={s.id} className="admin-student-row">
         <span className="admin-student-avatar">{s.avatar}</span>
         <span className="admin-student-name"><strong>{s.name}</strong><small>{s.email}</small></span>
         <span className="admin-student-class"><span>{s.classes.join(", ") || "Sem turma"}</span>

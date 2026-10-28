@@ -54,7 +54,7 @@ function FormButtons({ busy, back, label }: { busy: boolean; back: string; label
 }
 
 export function StudentRegistrationForm({ classrooms }: { classrooms: Classroom[] }) {
-  const { busy, error, save } = useSave("/api/admin/students", "/administrador/alunos");
+  const { busy, error, save } = useSave("/api/admin/students", "/admin/students");
   const [name, setName] = useState("");
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
@@ -85,12 +85,12 @@ export function StudentRegistrationForm({ classrooms }: { classrooms: Classroom[
     </div>
     <p className="admin-muted-note">Você poderá vincular responsáveis, ajustar o perfil e atribuir trilhas após o cadastro.</p>
     {error&&<p className="admin-feedback error" role="alert">{error}</p>}
-    <FormButtons busy={busy} back="/administrador/alunos" label="Cadastrar aluno"/>
+    <FormButtons busy={busy} back="/admin/students" label="Cadastrar aluno"/>
   </form>;
 }
 
 export function ClassroomRegistrationForm() {
-  const { busy, error, save } = useSave("/api/admin/classrooms", "/administrador/turmas");
+  const { busy, error, save } = useSave("/api/admin/classrooms", "/admin/classrooms");
   const [name,setName]=useState("");
   const [description,setDescription]=useState("");
   function submit(event:FormEvent<HTMLFormElement>) {event.preventDefault();void save({name,description});}
@@ -105,12 +105,12 @@ export function ClassroomRegistrationForm() {
         placeholder="Horário, nível ou informações da turma"/></label>
     </div>
     {error&&<p className="admin-feedback error" role="alert">{error}</p>}
-    <FormButtons busy={busy} back="/administrador/turmas" label="Cadastrar turma"/>
+    <FormButtons busy={busy} back="/admin/classrooms" label="Cadastrar turma"/>
   </form>;
 }
 
 export function GuardianRegistrationForm() {
-  const {busy,error,save}=useSave("/api/admin/guardians","/administrador/responsaveis");
+  const {busy,error,save}=useSave("/api/admin/guardians","/admin/guardians");
   const [name,setName]=useState("");
   const [email,setEmail]=useState("");
   const [password,setPassword]=useState("");
@@ -128,14 +128,14 @@ export function GuardianRegistrationForm() {
     </div>
     <p className="admin-muted-note">Após cadastrar, use “Vincular aluno” para definir quais estudantes essa pessoa acompanha.</p>
     {error&&<p className="admin-feedback error" role="alert">{error}</p>}
-    <FormButtons busy={busy} back="/administrador/responsaveis" label="Cadastrar responsável"/>
+    <FormButtons busy={busy} back="/admin/guardians" label="Cadastrar responsável"/>
   </form>;
 }
 
 export function GuardianLinkForm({ guardians, students }: {
   guardians: Guardian[]; students: Student[];
 }) {
-  const {busy,error,save}=useSave("/api/admin/guardians/links","/administrador/responsaveis");
+  const {busy,error,save}=useSave("/api/admin/guardians/links","/admin/guardians");
   const [guardianId,setGuardianId]=useState("");
   const [studentId,setStudentId]=useState("");
   const [financialResponsible,setFinancialResponsible]=useState(false);
@@ -158,14 +158,14 @@ export function GuardianLinkForm({ guardians, students }: {
       </label>
     </div>
     {error&&<p className="admin-feedback error" role="alert">{error}</p>}
-    <FormButtons busy={busy} back="/administrador/responsaveis" label="Salvar vínculo"/>
+    <FormButtons busy={busy} back="/admin/guardians" label="Salvar vínculo"/>
   </form>;
 }
 
 export function ChargeRegistrationForm({ students, initialStudentId }: {
   students: Student[]; initialStudentId?: string;
 }) {
-  const {busy,error,save}=useSave("/api/admin/charges","/administrador/financeiro");
+  const {busy,error,save}=useSave("/api/admin/charges","/admin/finance");
   const [studentId,setStudentId]=useState(initialStudentId||"");
   const [title,setTitle]=useState("Mensalidade de inglês");
   const [amount,setAmount]=useState("");
@@ -208,8 +208,8 @@ export function ChargeRegistrationForm({ students, initialStudentId }: {
     </div>
     {payerType==="GUARDIAN"&&!guardians.length&&studentId&&
       <p className="admin-feedback error">Este aluno não possui responsável vinculado.
-        <Link href="/administrador/responsaveis/vincular"> Vincular responsável</Link></p>}
+        <Link href="/admin/guardians/link"> Vincular responsável</Link></p>}
     {error&&<p className="admin-feedback error" role="alert">{error}</p>}
-    <FormButtons busy={busy} back="/administrador/financeiro" label="Cadastrar cobrança"/>
+    <FormButtons busy={busy} back="/admin/finance" label="Cadastrar cobrança"/>
   </form>;
 }
