@@ -17,7 +17,7 @@ export async function PATCH(request:Request,{params}:{params:Promise<{id:string}
     while(parent){
       if(visited.has(parent)||parent===id)return jsonError("Essa alteração criaria um ciclo de trilhas.",409);
       visited.add(parent);
-      const found=await db.learningPath.findUnique({where:{id:parent},select:{parentId:true}});
+      const found: { parentId: string | null } | null = await db.learningPath.findUnique({where:{id:parent},select:{parentId:true}});
       if(!found)return jsonError("Trilha superior não encontrada.",404);
       parent=found.parentId;
     }
