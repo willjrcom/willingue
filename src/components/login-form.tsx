@@ -16,7 +16,7 @@ export function LoginForm() {
       const response = await fetch("/api/auth/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, password }) });
       const result = await readApiJson<{ error?: string; redirect?: string }>(response);
       if (!response.ok) { setError(result.error || "Não foi possível entrar."); return; }
-      router.replace(result.redirect ?? "/aprender"); router.refresh();
+      router.replace(result.redirect ?? "/learn"); router.refresh();
     } catch (cause) { setError(cause instanceof Error ? cause.message : "Não foi possível conectar. Tente novamente."); }
     finally { setBusy(false); }
   }

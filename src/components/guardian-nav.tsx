@@ -4,10 +4,10 @@ import { usePathname } from "next/navigation";
 import { ChartNoAxesCombined, House, CreditCard, UserRound } from "lucide-react";
 
 const tabs = [
-  { href: "/responsavel", label: "Início", icon: House, exact: true },
-  { href: "/responsavel/alunos", label: "Aprendizado", icon: ChartNoAxesCombined },
-  { href: "/responsavel/financeiro", label: "Financeiro", icon: CreditCard },
-  { href: "/responsavel/perfil", label: "Perfil", icon: UserRound },
+  { href: "/guardian", label: "Início", icon: House, exact: true },
+  { href: "/guardian/students", label: "Aprendizado", icon: ChartNoAxesCombined },
+  { href: "/guardian/finance", label: "Financeiro", icon: CreditCard },
+  { href: "/guardian/profile", label: "Perfil", icon: UserRound },
 ];
 export function GuardianNav() {
   const pathname = usePathname();

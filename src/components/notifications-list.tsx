@@ -12,7 +12,7 @@ export function NotificationsList({ items }: { items: Item[] }) {
       const response = await fetch(`/api/notifications/${item.id}/read`, { method: "POST" });
       if (response.ok) setRead(a=>[...a,item.id]);
     }
-    const destination = item.href.startsWith("/") && !item.href.startsWith("//") ? item.href : "/aprender";
+    const destination = item.href.startsWith("/") && !item.href.startsWith("//") ? item.href : "/learn";
     router.push(destination);router.refresh();
   }
   if (!items.length) return <div className="empty-card"><span>🔔</span><h3>Nenhuma novidade por enquanto</h3><p>Suas notificações aparecerão aqui.</p></div>;
