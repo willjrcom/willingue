@@ -52,7 +52,7 @@ export default async function AdminReports({searchParams}:{searchParams:Promise<
     <div className="admin-report-financial">
      <div><span><CreditCard size={19}/> Pagamentos registrados</span><strong>{formatMoney(report.charges.paidAmount)}</strong></div>
      <div><span><CircleAlert size={19}/> Cobranças em atraso</span><strong>{report.charges.overdue.length}</strong></div>
-     <Link href="/administrador/financeiro">Abrir gestão financeira</Link>
+     <Link href="/admin/finance">Abrir gestão financeira</Link>
     </div>
    </section>
   </div>
@@ -61,7 +61,7 @@ export default async function AdminReports({searchParams}:{searchParams:Promise<
    <div className="admin-report-table-wrap"><table className="admin-report-table">
     <thead><tr><th>Aluno</th><th>Turma</th><th>Lições concluídas</th><th>XP acumulado</th><th>Última atividade</th></tr></thead>
     <tbody>{report.ranking.map(s=><tr key={s.id}>
-     <td><Link href={`/administrador/alunos/${s.id}`}><span>{s.avatar}</span>{s.name}</Link></td>
+     <td><Link href={`/admin/students/${s.id}`}><span>{s.avatar}</span>{s.name}</Link></td>
      <td>{s.classrooms.join(", ")||"Sem turma"}</td><td><strong>{s.completed}</strong></td><td>{s.xp}</td>
      <td>{s.lastActivity?dates.format(new Date(s.lastActivity)):"Não registrada"}</td>
     </tr>)}</tbody>

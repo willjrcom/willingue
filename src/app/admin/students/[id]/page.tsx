@@ -28,7 +28,7 @@ export default async function AdminStudentDetail({ params }: { params: Promise<{
   const enrollments = await db.pathEnrollment.findMany({ where: { studentId: student.id },
     select: { pathId: true } });
   return <div className="admin-content">
-    <Link href="/administrador/alunos" className="admin-back"><ArrowLeft size={17}/> Voltar aos alunos</Link>
+    <Link href="/admin/students" className="admin-back"><ArrowLeft size={17}/> Voltar aos alunos</Link>
     <div className="admin-student-detail-head"><span>{student.selectedAvatar || "🎓"}</span><div>
       <p className="admin-eyebrow">ACOMPANHAMENTO INDIVIDUAL</p><h1>{student.nickname || student.user.name}</h1>
       <p><Mail size={14}/> {student.user.email}</p></div></div>

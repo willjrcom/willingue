@@ -32,7 +32,7 @@ export default async function GuardianFinance({ searchParams }: {
   const overdue = charges.filter(charge => chargeStatus(charge) === "OVERDUE");
   const paid = charges.filter(charge => chargeStatus(charge) === "PAID");
   const link = (status: string, aluno: string) =>
-    `/responsavel/financeiro?status=${encodeURIComponent(status)}&aluno=${encodeURIComponent(aluno)}`;
+    `/guardian/finance?status=${encodeURIComponent(status)}&aluno=${encodeURIComponent(aluno)}`;
 
   return <div className="guardian-stack">
     <div className="guardian-page-title"><p className="guardian-eyebrow">GESTÃO FINANCEIRA</p><h1>Financeiro</h1>

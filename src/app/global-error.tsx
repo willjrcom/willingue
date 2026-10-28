@@ -8,7 +8,7 @@ export default function GlobalError({error,reset}:{error:Error&{digest?:string};
     description="Um problema inesperado impediu o carregamento. Tente novamente ou entre no aplicativo."
     home="/login" retry={reset}/>
    <nav style={{display:"flex",gap:15,flexWrap:"wrap",justifyContent:"center",marginTop:24}}>
-    <a href="/administrador">Administração</a><a href="/responsavel">Responsável</a><a href="/aprender">Aluno</a>
+    <a href="/admin">Administração</a><a href="/guardian">Responsável</a><a href="/learn">Aluno</a>
    </nav>
   </main>
  </body></html>;

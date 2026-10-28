@@ -34,16 +34,16 @@ export default async function AdminPage() {
   const overdue = openCharges.filter(c => chargeStatus(c, now) === "OVERDUE");
   const inactiveStudents = Math.max(0, students - finished.length);
   const cards = [
-    { label: "Alunos", value: students.toLocaleString("pt-BR"), hint: `${guardians} responsáveis`, icon: GraduationCap, href: "/administrador/alunos", tone: "purple" },
-    { label: "Turmas ativas", value: classes.toLocaleString("pt-BR"), hint: `${paths} trilhas publicadas`, icon: UsersRound, href: "/administrador/turmas", tone: "blue" },
-    { label: "Lições esta semana", value: completedWeek.toLocaleString("pt-BR"), hint: `${totalCompleted} concluídas no total`, icon: BookOpen, href: "/administrador/relatorios", tone: "mint" },
-    { label: "A receber", value: formatMoney(sumCharges(openCharges)), hint: `${overdue.length} cobrança(s) atrasada(s)`, icon: Wallet, href: "/administrador/financeiro", tone: "orange" },
+    { label: "Alunos", value: students.toLocaleString("pt-BR"), hint: `${guardians} responsáveis`, icon: GraduationCap, href: "/admin/students", tone: "purple" },
+    { label: "Turmas ativas", value: classes.toLocaleString("pt-BR"), hint: `${paths} trilhas publicadas`, icon: UsersRound, href: "/admin/classrooms", tone: "blue" },
+    { label: "Lições esta semana", value: completedWeek.toLocaleString("pt-BR"), hint: `${totalCompleted} concluídas no total`, icon: BookOpen, href: "/admin/reports", tone: "mint" },
+    { label: "A receber", value: formatMoney(sumCharges(openCharges)), hint: `${overdue.length} cobrança(s) atrasada(s)`, icon: Wallet, href: "/admin/finance", tone: "orange" },
   ];
   return <div className="admin-content">
     <div className="admin-welcome">
       <div><p className="admin-eyebrow">SEU PAINEL ESCOLAR</p><h1>Visão geral <span>✦</span></h1>
         <p>Uma visão completa do aprendizado, das turmas e da operação da escola.</p></div>
-      <Link className="admin-action-primary" href="/administrador/alunos"><GraduationCap size={17}/> Gerenciar alunos <ArrowRight size={17}/></Link>
+      <Link className="admin-action-primary" href="/admin/students"><GraduationCap size={17}/> Gerenciar alunos <ArrowRight size={17}/></Link>
     </div>
     <section className="admin-dash-cards" aria-label="Indicadores principais">
       {cards.map(card => { const Icon = card.icon; return <Link href={card.href} className="admin-dash-card" key={card.label}>
@@ -54,7 +54,7 @@ export default async function AdminPage() {
     <div className="admin-dashboard-columns">
       <section className="admin-panel">
         <div className="admin-panel-heading"><div><p className="admin-eyebrow">ATIVIDADE RECENTE</p><h2>Últimas lições</h2></div>
-          <Link href="/administrador/relatorios">Relatórios <ArrowRight size={16}/></Link></div>
+          <Link href="/admin/reports">Relatórios <ArrowRight size={16}/></Link></div>
         {recentCompletions.length ? <div className="admin-dash-activity">
           {recentCompletions.map(c => <div key={c.id}>
             <span className="admin-dash-activity-icon">{c.lesson.icon}</span>
@@ -66,7 +66,7 @@ export default async function AdminPage() {
       </section>
       <section className="admin-panel">
         <div className="admin-panel-heading"><div><p className="admin-eyebrow">FINANCEIRO</p><h2>Próximos vencimentos</h2></div>
-          <Link href="/administrador/financeiro">Ver contas <ArrowRight size={16}/></Link></div>
+          <Link href="/admin/finance">Ver contas <ArrowRight size={16}/></Link></div>
         {recentCharges.length ? <div className="admin-dash-activity">
           {recentCharges.map(c => <div key={c.id}>
             <span className="admin-dash-activity-icon"><CreditCard size={20}/></span>
@@ -83,9 +83,9 @@ export default async function AdminPage() {
       <div><span><Layers3 size={21}/></span><strong>{paths}</strong><small>Trilhas publicadas</small></div>
     </section>
     <div className="admin-section-links">
-      <Link href="/administrador/aprendizado"><Sparkles size={19}/> Gerenciar aprendizado <ArrowRight size={16}/></Link>
-      <Link href="/administrador/recompensas"><Layers3 size={19}/> Loja de recompensas <ArrowRight size={16}/></Link>
-      <Link href="/administrador/relatorios"><ChartNoAxesCombined size={19}/> Relatórios <ArrowRight size={16}/></Link>
+      <Link href="/admin/learning"><Sparkles size={19}/> Gerenciar aprendizado <ArrowRight size={16}/></Link>
+      <Link href="/admin/rewards"><Layers3 size={19}/> Loja de recompensas <ArrowRight size={16}/></Link>
+      <Link href="/admin/reports"><ChartNoAxesCombined size={19}/> Relatórios <ArrowRight size={16}/></Link>
     </div>
   </div>;
 }
