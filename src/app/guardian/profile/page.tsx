@@ -15,7 +15,7 @@ export default async function GuardianProfile() {
     <section className="guardian-section">
       <div className="guardian-section-title"><div><p className="guardian-eyebrow">VÍNCULOS</p><h2>Alunos acompanhados</h2></div></div>
       {children.length ? <div className="guardian-simple-list">{children.map(link =>
-        <Link key={link.id} href={`/responsavel/alunos/${link.studentId}`}>
+        <Link key={link.id} href={`/guardian/students/${link.studentId}`}>
           <span className="guardian-list-icon">{link.student.selectedAvatar || "🎓"}</span>
           <div><strong>{link.student.nickname || link.student.user.name}</strong>
             <small>{link.financialResponsible ? "Responsável financeiro" : "Acompanhamento de aprendizado"}</small></div>

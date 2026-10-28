@@ -15,7 +15,7 @@ export default async function GuardianStudentDetail({ params }: {
   const { student } = link;
   const overview = await childOverview(student.id);
   return <div className="guardian-stack">
-    <Link className="guardian-back" href="/responsavel/alunos"><ArrowLeft size={17}/> Meus alunos</Link>
+    <Link className="guardian-back" href="/guardian/students"><ArrowLeft size={17}/> Meus alunos</Link>
     <div className="guardian-student-hero">
       <span className="guardian-student-emoji">{student.selectedAvatar || "🎓"}</span>
       <div><p className="guardian-eyebrow">EVOLUÇÃO ESCOLAR</p><h1>{student.nickname || student.user.name}</h1>

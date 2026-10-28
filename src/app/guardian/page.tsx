@@ -41,7 +41,7 @@ export default async function GuardianHome() {
       </section>
       <section className="guardian-section">
         <div className="guardian-section-title"><div><p className="guardian-eyebrow">EVOLUÇÃO INDIVIDUAL</p><h2>Meus alunos</h2></div>
-          <Link href="/responsavel/alunos">Ver todos <ArrowRight size={16}/></Link></div>
+          <Link href="/guardian/students">Ver todos <ArrowRight size={16}/></Link></div>
         <div className="guardian-child-grid">
           {children.map(({ child, overview }) => <article className="guardian-child-card" key={child.id}>
             <div className="guardian-child-head"><span className="guardian-child-avatar">{child.selectedAvatar || "🎓"}</span>
@@ -50,14 +50,14 @@ export default async function GuardianHome() {
             <div className="guardian-progress-meta"><strong>{overview.percent}% do conteúdo disponível</strong>
               <span>{overview.completed}/{overview.total} lições</span></div>
             <p className="guardian-activity-hint">{overview.activityText}</p>
-            <Link className="guardian-card-link" href={`/responsavel/alunos/${child.id}`}>Ver aprendizado <ArrowRight size={17}/></Link>
+            <Link className="guardian-card-link" href={`/guardian/students/${child.id}`}>Ver aprendizado <ArrowRight size={17}/></Link>
           </article>)}
         </div>
       </section>
       <div className="guardian-highlight-row">
-        <Link href="/responsavel/alunos" className="guardian-highlight"><TrendingUp size={26}/>
+        <Link href="/guardian/students" className="guardian-highlight"><TrendingUp size={26}/>
           <span><strong>Progresso escolar</strong><small>Trilhas, atividades e histórico das lições.</small></span><ArrowRight size={18}/></Link>
-        <Link href="/responsavel/financeiro" className="guardian-highlight"><CalendarCheck2 size={26}/>
+        <Link href="/guardian/finance" className="guardian-highlight"><CalendarCheck2 size={26}/>
           <span><strong>Financeiro</strong><small>Vencimentos, cobranças e pagamentos registrados.</small></span><ArrowRight size={18}/></Link>
       </div>
     </>}

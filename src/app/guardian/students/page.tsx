@@ -24,7 +24,7 @@ export default async function GuardianStudents() {
           <span>{overview.completed}/{overview.total} lições</span></div>
         <div className="guardian-small-stats"><span><BookOpen size={16}/> {overview.recentWeekCount} nos últimos 7 dias</span>
           <span>{overview.activity.length} atividades pendentes</span></div>
-        <Link href={`/responsavel/alunos/${student.id}`} className="guardian-card-link">
+        <Link href={`/guardian/students/${student.id}`} className="guardian-card-link">
           Detalhes do aprendizado <ArrowRight size={17}/></Link>
       </article>)}
     </div>}

@@ -11,10 +11,10 @@ export default async function GuardianLayout({ children }: { children: ReactNode
   const unread = await db.notification.count({ where: { userId: guardian.id, readAt: null } });
   return <div className="guardian-shell">
     <header className="guardian-topbar">
-      <Link href="/responsavel" className="guardian-brand"><span><BrandMark size={37}/></span>Willingue<b>.</b></Link>
+      <Link href="/guardian" className="guardian-brand"><span><BrandMark size={37}/></span>Willingue<b>.</b></Link>
       <div className="guardian-top-actions">
         <span className="guardian-role-chip">Responsável</span>
-        <Link href="/responsavel/notificacoes" className="guardian-notif" aria-label={`${unread} notificações não lidas`}>
+        <Link href="/guardian/notifications" className="guardian-notif" aria-label={`${unread} notificações não lidas`}>
           <Bell size={21}/>{unread > 0 && <i>{unread > 9 ? "9+" : unread}</i>}</Link>
       </div>
     </header>
