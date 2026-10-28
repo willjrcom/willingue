@@ -19,6 +19,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Setup Node for unit tests
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test learning rules
+        run: npm run test:unit
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Log in to GHCR

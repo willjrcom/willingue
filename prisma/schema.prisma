@@ -1,0 +1,172 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String         @id @default(cuid())
+  email        String         @unique
+  name         String
+  passwordHash String
+  role         String         @default("STUDENT")
+  student      StudentProfile?
+  notifications Notification[]
+  createdAt    DateTime       @default(now())
+}
+
+model StudentProfile {
+  id              String             @id @default(cuid())
+  userId          String             @unique
+  user            User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  nickname        String?
+  xp              Int                @default(0)
+  coins           Int                @default(0)
+  selectedAvatar  String?            @default("🦊")
+  lastCompletedAt DateTime?
+  enrollments     PathEnrollment[]
+  completions     LessonCompletion[]
+  attempts        LessonAttempt[]
+  redemptions     RewardRedemption[]
+  activities      Activity[]
+}
+
+model LearningPath {
+  id          String          @id @default(cuid())
+  parentId    String?
+  parent      LearningPath?   @relation("PathTree", fields: [parentId], references: [id], onDelete: Cascade)
+  children    LearningPath[]  @relation("PathTree")
+  title       String
+  description String
+  icon        String          @default("📚")
+  color       String          @default("#7062eb")
+  position    Int             @default(0)
+  access      String          @default("PUBLIC")
+  published   Boolean         @default(true)
+  lessons     Lesson[]
+  enrollments PathEnrollment[]
+  createdAt   DateTime        @default(now())
+
+  @@index([parentId, position])
+}
+
+model PathEnrollment {
+  id        String         @id @default(cuid())
+  studentId String
+  pathId    String
+  student   StudentProfile @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  path      LearningPath   @relation(fields: [pathId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, pathId])
+}
+
+model Lesson {
+  id          String             @id @default(cuid())
+  pathId      String
+  path        LearningPath       @relation(fields: [pathId], references: [id], onDelete: Cascade)
+  title       String
+  description String
+  icon        String             @default("⭐")
+  position    Int                @default(0)
+  xpReward    Int                @default(30)
+  coinReward  Int                @default(15)
+  published   Boolean            @default(true)
+  questions   Question[]
+  completions LessonCompletion[]
+  attempts    LessonAttempt[]
+  activities  Activity[]
+
+  @@index([pathId, position])
+}
+
+model Question {
+  id          String  @id @default(cuid())
+  lessonId    String
+  lesson      Lesson  @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  position    Int     @default(0)
+  kind        String
+  prompt      String
+  options     String  @default("[]")
+  answer      String
+  explanation String?
+
+  @@index([lessonId, position])
+}
+
+model LessonCompletion {
+  id          String         @id @default(cuid())
+  studentId   String
+  lessonId    String
+  student     StudentProfile @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  lesson      Lesson         @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  score       Int
+  completedAt DateTime       @default(now())
+
+  @@unique([studentId, lessonId])
+}
+
+model LessonAttempt {
+  id          String         @id @default(cuid())
+  studentId   String
+  lessonId    String
+  student     StudentProfile @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  lesson      Lesson         @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  score       Int
+  correct     Int
+  total       Int
+  passed      Boolean
+  submittedAt DateTime       @default(now())
+
+  @@index([studentId, lessonId])
+}
+
+model Reward {
+  id          String             @id @default(cuid())
+  name        String
+  description String
+  icon        String
+  category    String
+  price       Int
+  active      Boolean            @default(true)
+  position    Int                @default(0)
+  redemptions RewardRedemption[]
+}
+
+model RewardRedemption {
+  id         String         @id @default(cuid())
+  studentId  String
+  rewardId   String
+  student    StudentProfile @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  reward     Reward         @relation(fields: [rewardId], references: [id], onDelete: Cascade)
+  redeemedAt DateTime       @default(now())
+
+  @@unique([studentId, rewardId])
+}
+
+model Notification {
+  id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  message   String
+  href      String    @default("/aprender")
+  readAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId, createdAt])
+}
+
+model Activity {
+  id          String         @id @default(cuid())
+  studentId   String
+  lessonId    String
+  student     StudentProfile @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  lesson      Lesson         @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  dueAt       DateTime
+  completedAt DateTime?
+
+  @@index([studentId, dueAt])
+}
