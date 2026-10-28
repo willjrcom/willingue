@@ -7,7 +7,7 @@ export default async function RegisterGuardianLink(){
     db.studentProfile.findMany({include:{user:{select:{name:true}}},
       orderBy:{user:{name:"asc"}}}),
   ]);
-  return <AdminCreatePage back="/administrador/responsaveis" eyebrow="GESTÃO FAMILIAR"
+  return <AdminCreatePage back="/admin/guardians" eyebrow="GESTÃO FAMILIAR"
     title="Vincular aluno" description="Relacione um aluno ao responsável que poderá acompanhar seu desempenho.">
     <GuardianLinkForm guardians={guardians} students={students.map(s=>({
       id:s.id,name:s.nickname||s.user.name,

@@ -17,7 +17,7 @@ export default async function AdminFinancePage() {
 
       <div className="admin-page-heading"><div><p className="admin-eyebrow">CONTROLE DE COBRANÇAS</p>
         <h1>Financeiro</h1><p>Acompanhe mensalidades, vencimentos e pagamentos registrados pela escola.</p></div>
-        <Link className="admin-action-primary" href="/administrador/financeiro/nova"><Plus size={17}/> Nova cobrança</Link>
+        <Link className="admin-action-primary" href="/admin/finance/new"><Plus size={17}/> Nova cobrança</Link>
       </div>
       <AdminFinanceManager charges={charges.map(c => ({
         id: c.id, studentName: c.student.nickname || c.student.user.name,

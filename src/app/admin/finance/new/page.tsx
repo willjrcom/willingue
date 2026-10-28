@@ -10,7 +10,7 @@ export default async function RegisterCharge({searchParams}:{
       guardianLinks:{include:{guardian:{select:{name:true,role:true}}}}},
     orderBy:{user:{name:"asc"}},
   });
-  return <AdminCreatePage back="/administrador/financeiro" eyebrow="CONTROLE FINANCEIRO"
+  return <AdminCreatePage back="/admin/finance" eyebrow="CONTROLE FINANCEIRO"
     title="Nova cobrança" description="Informe valor, vencimento, aluno e quem será responsável pelo pagamento.">
     <ChargeRegistrationForm initialStudentId={students.some(s=>s.id===params.aluno)?params.aluno:undefined}
       students={students.map(s=>({id:s.id,name:s.nickname||s.user.name,

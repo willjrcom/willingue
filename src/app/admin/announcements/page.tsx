@@ -12,7 +12,7 @@ export default async function AdminAnnouncementsPage(){
  return <div className="admin-content">
   <div className="admin-page-heading"><div><p className="admin-eyebrow">COMUNICAÇÃO ESCOLAR</p>
    <h1>Comunicados</h1><p>Envie avisos para alunos, responsáveis ou turmas específicas.</p></div>
-   <Link className="admin-action-primary" href="/administrador/comunicados/novo"><Plus size={17}/> Novo comunicado</Link>
+   <Link className="admin-action-primary" href="/admin/announcements/new"><Plus size={17}/> Novo comunicado</Link>
   </div>
   <div className="admin-dash-insights">
    <div><span><Megaphone size={21}/></span><strong>{notices.length}</strong><small>Cadastrados</small></div>

@@ -48,7 +48,7 @@ export default async function AdminClassesPage() {
 
       <div className="admin-page-heading"><div><p className="admin-eyebrow">GESTÃO ESCOLAR</p>
         <h1>Turmas</h1><p>Consulte turmas, alunos vinculados e rankings. Crie uma turma quando precisar.</p></div>
-        <Link className="admin-action-primary" href="/administrador/turmas/nova"><Plus size={17}/> Nova turma</Link>
+        <Link className="admin-action-primary" href="/admin/classrooms/new"><Plus size={17}/> Nova turma</Link>
       </div>
       <ClassroomManager classrooms={classrooms} students={allStudents}/>
 

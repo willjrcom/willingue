@@ -5,5 +5,5 @@ export default function AdminError({error,reset}:{error:Error&{digest?:string};r
  useEffect(()=>{console.error("Erro no administrador",error);},[error]);
  return <div className="admin-content"><ErrorPanel code="500" title="Não foi possível carregar esta tela"
   description="Ocorreu um problema temporário. Tente novamente ou use o menu lateral para continuar."
-  home="/administrador" retry={reset}/></div>;
+  home="/admin" retry={reset}/></div>;
 }

@@ -18,8 +18,8 @@ export default async function AdminGuardiansPage() {
       <div className="admin-page-heading"><div><p className="admin-eyebrow">GESTÃO FAMILIAR</p>
         <h1>Responsáveis</h1><p>Consulte os responsáveis e os alunos que cada um acompanha.</p></div>
         <div className="admin-heading-actions">
-          <Link className="admin-secondary-button" href="/administrador/responsaveis/vincular"><Link2 size={17}/> Vincular aluno</Link>
-          <Link className="admin-action-primary" href="/administrador/responsaveis/novo"><Plus size={17}/> Cadastrar responsável</Link>
+          <Link className="admin-secondary-button" href="/admin/guardians/link"><Link2 size={17}/> Vincular aluno</Link>
+          <Link className="admin-action-primary" href="/admin/guardians/new"><Plus size={17}/> Cadastrar responsável</Link>
         </div>
       </div>
       <GuardianManager

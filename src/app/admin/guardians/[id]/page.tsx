@@ -39,7 +39,7 @@ export default async function AdminGuardianDetail({params}:{params:Promise<{id:s
  const open=charges.filter(c=>["PENDING","OVERDUE"].includes(chargeStatus(c)));
  const paid=charges.filter(c=>chargeStatus(c)==="PAID");
  return <div className="admin-content">
-  <Link href="/administrador/responsaveis" className="admin-back"><ArrowLeft size={17}/> Voltar aos responsáveis</Link>
+  <Link href="/admin/guardians" className="admin-back"><ArrowLeft size={17}/> Voltar aos responsáveis</Link>
   <div className="admin-page-heading"><div><p className="admin-eyebrow">ACOMPANHAMENTO FAMILIAR</p>
    <h1>{guardian.name}</h1><p><Mail size={15} style={{verticalAlign:"middle"}}/> {guardian.email}</p></div>
    <AdminGuardianEditor id={guardian.id} name={guardian.name} email={guardian.email}/>
@@ -52,14 +52,14 @@ export default async function AdminGuardianDetail({params}:{params:Promise<{id:s
   </section>
   <section className="admin-panel">
    <div className="admin-panel-heading"><div><p className="admin-eyebrow">FILHOS E APRENDIZADO</p><h2>Alunos acompanhados</h2></div>
-    <Link href="/administrador/responsaveis/vincular">Vincular aluno <ArrowRight size={16}/></Link></div>
+    <Link href="/admin/guardians/link">Vincular aluno <ArrowRight size={16}/></Link></div>
    <div className="admin-guardian-children">
     {children.map(({link,overview})=><article className="admin-guardian-child" key={link.studentId}>
      <div className="admin-guardian-child-head"><span>{link.student.selectedAvatar||"🎓"}</span><div>
       <strong>{link.student.nickname||link.student.user.name}</strong>
       <small>{link.student.classrooms.map(c=>c.classroom.name).join(", ")||"Estudo individual"}
        {link.financialResponsible?" · Responsável financeiro":""}</small></div>
-      <Link href={`/administrador/alunos/${link.studentId}`} aria-label="Abrir perfil do aluno"><ArrowRight size={18}/></Link></div>
+      <Link href={`/admin/students/${link.studentId}`} aria-label="Abrir perfil do aluno"><ArrowRight size={18}/></Link></div>
      <div className="guardian-progress-track"><span style={{width:`${overview.percent}%`}}/></div>
      <div className="guardian-progress-meta"><strong>{overview.percent}% do conteúdo disponível</strong>
       <span>{overview.completed}/{overview.total} lições</span></div>
@@ -77,14 +77,14 @@ export default async function AdminGuardianDetail({params}:{params:Promise<{id:s
        <span>{a.lesson.icon}</span><p>{a.lesson.title}</p>
        <small>Até {formatDueDate(a.dueAt)}</small></div>):<p>Nenhuma atividade pendente.</p>}
      </div>
-     <Link className="admin-guardian-more" href={`/administrador/alunos/${link.studentId}`}>Ver histórico e trilhas do aluno <ArrowRight size={16}/></Link>
+     <Link className="admin-guardian-more" href={`/admin/students/${link.studentId}`}>Ver histórico e trilhas do aluno <ArrowRight size={16}/></Link>
     </article>)}
     {!children.length&&<div className="admin-inline-empty">Nenhum aluno vinculado a este responsável.</div>}
    </div>
   </section>
   <section className="admin-panel">
    <div className="admin-panel-heading"><div><p className="admin-eyebrow">CONTAS DOS ALUNOS</p><h2>Situação financeira</h2></div>
-    <Link href="/administrador/financeiro">Abrir financeiro <ArrowRight size={16}/></Link></div>
+    <Link href="/admin/finance">Abrir financeiro <ArrowRight size={16}/></Link></div>
    <div className="admin-guardian-finance-totals"><span><CreditCard size={18}/> {charges.length} cobranças</span>
     <span><Wallet size={18}/> {formatMoney(open.reduce((n,c)=>n+c.amountCents,0))} em aberto</span></div>
    {charges.length ? <div className="admin-guardian-charge-list">{charges.map(c=><div key={c.id}>
