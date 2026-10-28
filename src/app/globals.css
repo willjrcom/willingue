@@ -571,3 +571,30 @@
 .admin-state-tag.off{background:#f1eff3;color:#877e8b}
 @media(max-width:1180px){.admin-rewards-grid{grid-template-columns:1fr}}
 @media(max-width:480px){.admin-reward-item{gap:8px;padding:9px}.admin-reward-preview{width:61px;min-width:61px;min-height:72px}.admin-reward-preview>span{font-size:24px}}
+
+/* Learning editor */
+.admin-learning-tabs{display:flex;gap:8px;flex-wrap:wrap}
+.admin-learning-tabs button{display:flex;align-items:center;gap:8px;padding:12px 17px;border-radius:10px;background:#fff;border:1px solid #e8e4f1;color:#867d9e;font-weight:850;font-size:12px}
+.admin-learning-tabs button.active{background:#6554dc;color:#fff;border-color:#6554dc}
+.admin-learning-card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.admin-learning-card{display:grid;gap:10px;border:1px solid #e9e5f3;background:#fff;border-radius:16px;padding:17px}
+.admin-learning-card-heading{display:flex;align-items:center;gap:11px;min-width:0}
+.admin-learning-card-emoji{width:43px;height:43px;border-radius:12px;background:#f2eeff;display:grid;place-items:center;font-size:25px}
+.admin-learning-card-heading>span:nth-child(2){flex:1;min-width:0;display:grid;gap:4px}
+.admin-learning-card-heading strong{font-size:14px;overflow-wrap:anywhere}
+.admin-learning-card-heading small,.admin-learning-card>p{color:#938ba4;font-size:11px}
+.admin-learning-card>p{margin:0}
+.admin-learning-card-foot{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.admin-learning-chip{font-size:10px;font-weight:850;background:#f2edff;border-radius:7px;color:#6958c6;padding:6px 9px}
+.admin-learning-chip.draft{background:#fff1e5;color:#c08444}
+.admin-learning-editor{display:grid;gap:16px}
+.admin-learning-help{color:#817995;font-size:11px;margin:0;line-height:1.6}
+.admin-learning-question{border:1px solid #ede9f5;border-radius:13px;padding:13px;display:flex;gap:12px;align-items:center}
+.admin-learning-question>span{font-size:12px;font-weight:850;color:#6858c7;min-width:23px}
+.admin-learning-question>div{flex:1;display:grid;gap:5px;min-width:0}
+.admin-learning-question strong{font-size:12px}
+.admin-learning-question small{font-size:10px;color:#968da8}
+.admin-learning-preview{background:#f6f3ff;border-radius:12px;padding:16px;display:grid;gap:8px}
+.admin-learning-preview strong{font-size:12px}
+.admin-learning-preview p{font-size:12px;color:#7e759e;margin:0}
+@media(max-width:1050px){.admin-learning-card-grid{grid-template-columns:1fr}}

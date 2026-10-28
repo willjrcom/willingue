@@ -149,3 +149,10 @@ Faça **redeploy** depois de configurar as variáveis e confirme o volume persis
 - Exibe contagem real de resgates e permite buscar/filtrar os itens.
 - Itens desativados não podem ser comprados novamente, mas permanecem na coleção de quem já os adquiriu. Preços alterados não modificam compras antigas.
 - O catálogo atual utiliza o gerador local de PNG/avatares do MVP; upload de artes próprias ainda será uma expansão posterior.
+
+## Editor de aprendizado
+
+- Admin pode criar e editar trilhas e subtrilhas com profundidade livre, ícone/cor, ordem, modo público/atribuído e publicação.
+- Pode criar lições, definir XP e moedas, alterar trilha, publicar após criar questões; novas lições são rascunhos por segurança.
+- Criar e editar questões dos seis formatos já suportados pelo player. Respostas e opções são validadas no servidor e convertidas em JSON compatível com o sistema atual.
+- Para a prevenção de ciclos, a atualização de trilhas valida toda a cadeia ancestral.
